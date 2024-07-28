@@ -1,0 +1,43 @@
+.row {
+  display: flex;
+
+  &.center-items {
+    align-items: center;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.gap-0 {
+    gap: 0;
+  }
+
+  &.gap-xxs {
+    gap: $spacing-xxs;
+  }
+
+  &.gap-xs {
+    gap: $spacing-xs;
+  }
+
+  &.gap-sm {
+    gap: $spacing-sm;
+  }
+
+  &.gap-md {
+    gap: $spacing-md;
+  }
+
+  &.gap-lg {
+    gap: $spacing-lg;
+  }
+
+  &.gap-xl {
+    gap: $spacing-xl;
+  }
+
+  &.gap-xxl {
+    gap: $spacing-xxl;
+  }
+}

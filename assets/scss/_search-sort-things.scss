@@ -1,0 +1,38 @@
+.search-sort-things {
+  margin-bottom: $spacing-md;
+}
+
+.clear-search-things {
+  background: none;
+  border: none;
+  box-shadow: none;
+  font-variant: all-small-caps;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+
+  &:hover:not(:active),
+  &:active {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: initial;
+  }
+
+  i {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+  }
+
+  svg {
+    fill: rgba(0, 0, 0, .25);
+  }
+
+  &:hover,
+  &:focus {
+    svg {
+      fill: rgba(0, 0, 0, .5);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+// 10px
+$tenpx: 0.625rem;
+
+// Font Sizes
+$font-size-xs: var(--wp--preset--font-size--xs);
+$font-size-sm: var(--wp--preset--font-size--sm);
+$font-size-normal: var(--wp--preset--font-size--normal);
+$font-size-md: var(--wp--preset--font-size--md);
+$font-size-lg: var(--wp--preset--font-size--lg);
+$font-size-xl: var(--wp--preset--font-size--xl);
+$font-size-xxl: var(--wp--preset--font-size--xxl);
+$font-size-huge: var(--wp--preset--font-size--huge);
+
+// Spacing
+$spacing-xxs: var(--wp--preset--spacing--20);
+$spacing-xs: var(--wp--preset--spacing--30);
+$spacing-sm: var(--wp--preset--spacing--40);
+$spacing-md: var(--wp--preset--spacing--50);
+$spacing-lg: var(--wp--preset--spacing--60);
+$spacing-xl: var(--wp--preset--spacing--70);
+$spacing-xxl: var(--wp--preset--spacing--80);
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

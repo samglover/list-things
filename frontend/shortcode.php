@@ -1,0 +1,75 @@
+<?php
+namespace List_Things;
+
+/** 
+ * The following attributes can be a comma-delimited string:
+ * * post_type
+ * * post__not_in
+ * * sort_buttons
+ */
+add_shortcode('list-things', __NAMESPACE__ . '\list_things_shortcode');
+function list_things_shortcode($atts) {
+  $atts = shortcode_atts([
+    // Args (query vars)
+    'order' => 'DESC',
+    'orderby' => 'post_title',
+    'post_parent' => '',
+    'post_type' => 'post',
+    'post__not_in' => '',
+    's' => '',
+    // Options
+    'layout' => 'list',
+    'show_excerpt' => false,
+    'show_search' => false,
+    'show_sort' => false,
+    'sort_buttons' => ['a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize'],
+    'show_thumbnail' => false,
+  ], $atts, 'list-things');
+  $atts['post_type'] = preg_split('/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY);
+  $atts['post__not_in'] = $atts['post__not_in'] ? preg_split('/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY) : '';
+  if (!is_array($atts['sort_buttons'])) $atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split('/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY) : '';
+  $atts = sanitize_array($atts);
+
+  // echo '<pre>';
+  //   var_dump($atts['sort_buttons']);
+  // echo '</pre>';
+  
+  $args = [
+    'order' => $atts['order'],
+    'orderby' => $atts['orderby'],
+    'post_parent' => $atts['post_parent'],
+    'post_type' => $atts['post_type'],
+    'post__not_in' => $atts['post__not_in'],
+    's' => $atts['s']
+  ];
+  foreach ($args as $key => $val) {
+    if (empty($val)) unset($args[$key]);
+  }
+
+  // echo '<pre>';
+  //   var_dump($args);
+  // echo '</pre>';
+
+  $options = [
+    'layout' => $atts['layout'],
+    'show_excerpt' => $atts['show_excerpt'],
+    'show_search' => $atts['show_search'],
+    'show_sort' => $atts['show_sort'],
+    'sort_buttons' => $atts['sort_buttons'],
+    'show_thumbnail' => $atts['show_thumbnail'],
+  ];
+  
+  ob_start();
+    list_things($args, $options);
+  $list_of_things = ob_get_clean();
+  return $list_of_things;
+}
+
+
+add_shortcode('list-child-pages', __NAMESPACE__ . '\list_child_pages_shortcode');
+function list_child_pages_shortcode($atts) {
+  $atts = shortcode_atts([
+    'parent' => get_the_ID(),
+  ], $atts);
+  return do_shortcode('[list-things post_type="page" post_parent="' . $atts['parent'] . '"]');
+}
