@@ -32,19 +32,39 @@
   gap: var(--wp--preset--spacing--80);
 }
 
+:where(.thing-card) {
+  border: 1px solid LightSlateGray;
+}
+
 .list-of-things {
   margin-bottom: var(--wp--preset--spacing--60);
 }
-.list-of-things .thing.card .thing-title__container > :first-child {
+.list-of-things .thing .thing-title {
   margin-top: 0;
 }
-.list-of-things .thing.card .thing-title__container > :last-child {
+.list-of-things .thing.thing-card {
+  padding: var(--wp--preset--spacing--50);
+}
+.list-of-things .thing.thing-card.thing-has-thumbnail {
+  padding: 0;
+}
+.list-of-things .thing.thing-card.thing-has-thumbnail .thing-thumbnail__container {
+  margin: 0;
+  padding: 0;
+}
+.list-of-things .thing.thing-card.thing-has-thumbnail .thing-title__container {
+  padding: 0 var(--wp--preset--spacing--50) var(--wp--preset--spacing--50) var(--wp--preset--spacing--50);
+}
+.list-of-things .thing.thing-card .thing-col > :first-child {
+  margin-top: 0;
+}
+.list-of-things .thing.thing-card .thing-col > :last-child {
   margin-bottom: 0;
 }
 
 .list-of-things_container.layout-grid .list-of-things {
   display: grid;
-  gap: var(--wp--preset--spacing--50);
+  gap: var(--wp--preset--spacing--30);
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .list-of-things_container.layout-grid .list-of-things .thing {
@@ -66,14 +86,16 @@
 .list-of-things_container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-title__container > :last-child {
   margin-bottom: 0;
 }
+.list-of-things_container.layout-list .list-of-things .thing .thing-read-more-button {
+  margin-bottom: var(--wp--preset--spacing--60);
+}
 .list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail {
   align-items: center;
   display: grid;
   gap: var(--wp--preset--spacing--40);
   grid-template-areas: "thumbnail title";
   grid-template-columns: 1fr 3fr;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-bottom: var(--wp--preset--spacing--60);
   min-height: 150px;
 }
 .list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container {
@@ -90,7 +112,7 @@
 }
 .list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container {
   grid-area: title;
-  padding: 1em 0;
+  padding: var(--wp--preset--spacing--40) 0;
 }
 .list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container > :first-child {
   margin-top: 0;

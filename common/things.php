@@ -38,27 +38,25 @@ function get_things($args, $options) {
     ob_start();
       while ($things_query->have_posts()): $things_query->the_post();
         $post_classes = ['thing'];
-        if ($options['layout'] == 'grid') $post_classes[] = 'card';
+        if ($options['layout'] == 'grid') $post_classes[] = 'card thing-card';
         if ($options['show_excerpt']) $post_classes[] = 'thing-has-excerpt';
         if ($options['show_thumbnail'] && has_post_thumbnail()) $post_classes[] = 'thing-has-thumbnail';
         ?>
           <article <?php post_class($post_classes); ?>>
-            <header class="thing-header entry-header">
-              <?php if ($options['show_thumbnail'] && has_post_thumbnail()) { ?>
-                <div class="thing-thumbnail__container wp-post-image__container">
-                  <a href="<?php echo get_the_permalink(); ?>"><?php the_post_thumbnail('medium', ['class' => 'thing-thumbnail']); ?></a>
-                </div>
-              <?php } ?>
+            <?php if ($options['show_thumbnail'] && has_post_thumbnail()) { ?>
+              <div class="thing-col thing-thumbnail__container wp-post-image__container">
+                <a href="<?php echo get_the_permalink(); ?>"><?php the_post_thumbnail('medium', ['class' => 'thing-thumbnail']); ?></a>
+              </div>  
+            <?php } ?>
+            <div class="thing-col thing-title__container">
               <<?php echo $options['title_tag']; ?> class="thing-title entry-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></<?php echo $options['title_tag']; ?>>
-            </header>
-            <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
-              <p class="thing-excerpt entry-excerpt"><?php echo get_the_excerpt(); ?></p>
-            <?php } ?>
-            <?php if ($options['show_read_more']) { ?>
-              <footer class="thing-footer entry-footer">
-                <a href="<?php echo get_the_permalink(); ?>" class="button wp-element-button"><?php _e('Read more', 'list-things'); ?></a>
-              </footer>
-            <?php } ?>
+              <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
+                <p class="thing-excerpt entry-excerpt"><?php echo get_the_excerpt(); ?></p>
+              <?php } ?>
+              <?php if ($options['show_read_more']) { ?>
+                <a href="<?php echo get_the_permalink(); ?>" class="button wp-element-button thing-read-more-button"><?php _e('Read more', 'list-things'); ?></a>
+              <?php } ?>
+            </div>
           </article>
         <?php 
       endwhile;
