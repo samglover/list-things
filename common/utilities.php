@@ -1,6 +1,32 @@
 <?php
 namespace List_Things;
 
+function get_default_params($format = null) {
+  $default_params = [
+    'args' => [
+      'order' => 'DESC',
+      'orderby' => 'post_title',
+      'post_parent' => null,
+      'post_type' => 'post',
+      'post__not_in' => null,
+      'posts_per_page' => -1,
+      's' => '',
+    ],
+    'options' => [
+      'layout' => 'list',
+      'show_excerpt' => false,
+      'show_read_more' => false,
+      'show_search' => false,
+      'show_sort' => false,
+      'sort_buttons' => ['a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize'],
+      'show_thumbnail' => false,
+      'title_tag' => 'h3',
+    ],
+  ];
+  if ($format == 'merged') $default_params = array_merge($default_params['args'], $default_params['options']);
+  return $default_params;
+}
+
 function format_list_of_things($things, $and_or = 'and') {
   if (!$things) return;
   if (!is_array($things)) return $things;

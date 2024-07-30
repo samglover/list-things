@@ -3,7 +3,7 @@
 
   .thing {
     &.card {
-      .thing-title-container {
+      .thing-title__container {
         > :first-child {
           margin-top: 0;
         }
@@ -29,7 +29,7 @@
         gap: $spacing-sm;
     
         &.thing-has-thumbnail {
-          .thing-thumbnail-container {
+          .thing-thumbnail__container {
             background-color: rgba(0, 0, 0, .1);
     
             img {
@@ -39,7 +39,7 @@
             }
           }
 
-          .thing-title-container {
+          .thing-title__container {
             > :first-child {
               margin-top: 0;
             }
@@ -66,7 +66,7 @@
           margin-bottom: 1em;
           min-height: 150px;
     
-          .thing-thumbnail-container {
+          .thing-thumbnail__container {
             background-color: rgba(0, 0, 0, .1);
             grid-area: thumbnail;
             height: 100%;
@@ -80,7 +80,7 @@
             }
           }
     
-          .thing-title-container {
+          .thing-title__container {
             grid-area: title;
             padding: 1em 0;
 

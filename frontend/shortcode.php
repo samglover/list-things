@@ -9,22 +9,7 @@ namespace List_Things;
  */
 add_shortcode('list-things', __NAMESPACE__ . '\list_things_shortcode');
 function list_things_shortcode($atts) {
-  $atts = shortcode_atts([
-    // Args (query vars)
-    'order' => 'DESC',
-    'orderby' => 'post_title',
-    'post_parent' => '',
-    'post_type' => 'post',
-    'post__not_in' => '',
-    's' => '',
-    // Options
-    'layout' => 'list',
-    'show_excerpt' => false,
-    'show_search' => false,
-    'show_sort' => false,
-    'sort_buttons' => ['a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize'],
-    'show_thumbnail' => false,
-  ], $atts, 'list-things');
+  $atts = shortcode_atts(get_default_params('merged'), $atts, 'list-things');
   $atts['post_type'] = preg_split('/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY);
   $atts['post__not_in'] = $atts['post__not_in'] ? preg_split('/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY) : '';
   if (!is_array($atts['sort_buttons'])) $atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split('/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY) : '';
@@ -49,16 +34,22 @@ function list_things_shortcode($atts) {
   // echo '<pre>';
   //   var_dump($args);
   // echo '</pre>';
-
+  
   $options = [
     'layout' => $atts['layout'],
     'show_excerpt' => $atts['show_excerpt'],
+    'show_read_more' => $atts['show_read_more'],
     'show_search' => $atts['show_search'],
     'show_sort' => $atts['show_sort'],
     'sort_buttons' => $atts['sort_buttons'],
     'show_thumbnail' => $atts['show_thumbnail'],
+    'title_tag' => $atts['title_tag'],
   ];
   
+  // echo '<pre>';
+  //   var_dump($options);
+  // echo '</pre>';
+
   ob_start();
     list_things($args, $options);
   $list_of_things = ob_get_clean();

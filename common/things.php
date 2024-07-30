@@ -3,24 +3,10 @@ namespace List_Things;
 
 function list_things($args, $options) {
   static $things_section_id = 42;
-  $args_defaults = [
-    'order' => 'DESC',
-    'orderby' => 'post_title',
-    'posts_per_page' => -1,
-  ];
-  $args = wp_parse_args($args, $args_defaults);
-
-  $options_defaults = [
-    'layout' => 'list',
-    'searched' => false,
-    'show_excerpt' => false,
-    'show_search' => false,
-    'show_sort' => false,
-    'sort_buttons' => ['a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize'],
-    'show_thumbnail' => false,
-    'things_section_id' => $things_section_id,
-  ];
-  $options = wp_parse_args($options, $options_defaults);
+  $default_params = get_default_params();
+  $args = wp_parse_args($args, $default_params['args']);
+  $options = wp_parse_args($options, $default_params['options']);
+  $options['things_section_id'] = $things_section_id;
   $post_type_names = get_post_type_names($args['post_type']);
   ?>
     <div 
@@ -57,19 +43,22 @@ function get_things($args, $options) {
         if ($options['show_thumbnail'] && has_post_thumbnail()) $post_classes[] = 'thing-has-thumbnail';
         ?>
           <article <?php post_class($post_classes); ?>>
-            <?php if ($options['show_thumbnail'] && has_post_thumbnail()) { ?>
-              <div class="thing-thumbnail-container">
-                <?php the_post_thumbnail('medium', ['class' => 'thing-thumbnail']); ?>
-              </div>
-            <?php } ?>
-            <div class="thing-title-container">
-              <p class="entry-title thing-title">
-                <a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a>
-              </p>
-              <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
-                <p class="thing-excerpt"><?php echo get_the_excerpt(); ?></p>
+            <header class="thing-header entry-header">
+              <?php if ($options['show_thumbnail'] && has_post_thumbnail()) { ?>
+                <div class="thing-thumbnail__container wp-post-image__container">
+                  <a href="<?php echo get_the_permalink(); ?>"><?php the_post_thumbnail('medium', ['class' => 'thing-thumbnail']); ?></a>
+                </div>
               <?php } ?>
-            </div>
+              <<?php echo $options['title_tag']; ?> class="thing-title entry-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></<?php echo $options['title_tag']; ?>>
+            </header>
+            <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
+              <p class="thing-excerpt entry-excerpt"><?php echo get_the_excerpt(); ?></p>
+            <?php } ?>
+            <?php if ($options['show_read_more']) { ?>
+              <footer class="thing-footer entry-footer">
+                <a href="<?php echo get_the_permalink(); ?>" class="button wp-element-button"><?php _e('Read more', 'list-things'); ?></a>
+              </footer>
+            <?php } ?>
           </article>
         <?php 
       endwhile;
