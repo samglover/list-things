@@ -19,7 +19,7 @@ function search_things_form($args, $options) {
           type="search" 
           <?php if (isset($args['s']) && !empty($args['s'])) echo 'value="' . $args['s'] . '"'; ?>
         />
-        <button type='submit'>Search</button>
+        <button type='submit' class="wp-element-button">Search</button>
       </div>
     </form>
   <?php

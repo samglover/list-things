@@ -53,7 +53,7 @@ function get_sort_buttons($selected_buttons) {
     foreach($selected_buttons as $button) {
       if (!array_key_exists($button, $all_buttons)) continue;
       $class = isset($all_buttons[$button]['class']) ? ' ' . $all_buttons[$button]['class'] : '';
-      echo '<button type="button" class="button things-sort-button' . $class . '" data-things-order="' . $all_buttons[$button]['order'] . '" data-things-orderby="' . $all_buttons[$button]['orderby'] . '">' . $all_buttons[$button]['label'] . '</button>';
+      echo '<button type="button" class="wp-element-button button things-sort-button' . $class . '" data-things-order="' . $all_buttons[$button]['order'] . '" data-things-orderby="' . $all_buttons[$button]['orderby'] . '">' . $all_buttons[$button]['label'] . '</button>';
     }
   return ob_get_clean();
 }
