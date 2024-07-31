@@ -10,6 +10,7 @@ namespace List_Things;
 add_shortcode('list-things', __NAMESPACE__ . '\list_things_shortcode');
 function list_things_shortcode($atts) {
   $atts = shortcode_atts(get_default_params('merged'), $atts, 'list-things');
+  $atts['post_status'] = preg_split('/, */', $atts['post_status'], -1, PREG_SPLIT_NO_EMPTY);
   $atts['post_type'] = preg_split('/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY);
   $atts['post__not_in'] = $atts['post__not_in'] ? preg_split('/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY) : '';
   if (!is_array($atts['sort_buttons'])) $atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split('/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY) : '';
@@ -23,6 +24,7 @@ function list_things_shortcode($atts) {
     'order' => $atts['order'],
     'orderby' => $atts['orderby'],
     'post_parent' => $atts['post_parent'],
+    'post_status' => $atts['post_status'],
     'post_type' => $atts['post_type'],
     'post__not_in' => $atts['post__not_in'],
     's' => $atts['s']

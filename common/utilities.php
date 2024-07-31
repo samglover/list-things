@@ -7,6 +7,7 @@ function get_default_params($format = null) {
       'order' => 'DESC',
       'orderby' => 'post_title',
       'post_parent' => null,
+      'post_status' => 'publish',
       'post_type' => 'post',
       'post__not_in' => null,
       'posts_per_page' => -1,
