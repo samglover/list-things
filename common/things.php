@@ -48,6 +48,11 @@ function get_things($args, $options) {
         if ($options['layout'] == 'grid') $post_classes[] = 'card thing-card';
         if ($options['show_excerpt']) $post_classes[] = 'thing-has-excerpt';
         if ($options['show_thumbnail'] && has_post_thumbnail()) $post_classes[] = 'thing-has-thumbnail';
+        $title_classes = [
+          'thing-title',
+          'entry-title',
+        ];
+        if ($options['hide_title']) $title_classes = 'screen-reader-text'
         ?>
           <article <?php post_class($post_classes); ?>>
             <?php if ($options['show_thumbnail'] && has_post_thumbnail()) { ?>
@@ -56,7 +61,7 @@ function get_things($args, $options) {
               </div>  
             <?php } ?>
             <div class="thing-col thing-title__container">
-              <<?php echo $options['title_tag']; ?> class="thing-title entry-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></<?php echo $options['title_tag']; ?>>
+              <<?php echo $options['title_tag']; ?> class="<?php echo implode(' ', $title_classes); ?>"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></<?php echo $options['title_tag']; ?>>
               <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
                 <p class="thing-excerpt entry-excerpt"><?php echo get_the_excerpt(); ?></p>
               <?php } ?>

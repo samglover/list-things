@@ -61,6 +61,15 @@
   border: 1px solid LightSlateGray;
 }
 
+:where(.screen-reader-text) {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+}
+
 .list-of-things {
   margin-bottom: var(--wp--preset--spacing--60);
 }

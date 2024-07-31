@@ -14,6 +14,7 @@ function get_default_params($format = null) {
     ],
     'options' => [
       'grid_cols' => 3,
+      'hide_title' => false,
       'layout' => 'list',
       'show_excerpt' => false,
       'show_read_more' => false,
