@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
   if (!document.querySelector('.thing-searcher')) return;
   $('.thing-searcher').each(function () {
-    let thisSection = $(this).parents('.list-of-things_container'); 
+    let thisSection = $(this).parents('.list-of-things__container'); 
     let nonce = {
       nonce: thisSection.data('thingsNonce'),
       nonce_action: 'things_nonce_' + thisSection.data('thingsSectionId'),

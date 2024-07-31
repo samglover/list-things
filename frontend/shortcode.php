@@ -36,6 +36,7 @@ function list_things_shortcode($atts) {
   // echo '</pre>';
   
   $options = [
+    'grid_cols' => $atts['grid_cols'],
     'layout' => $atts['layout'],
     'show_excerpt' => $atts['show_excerpt'],
     'show_read_more' => $atts['show_read_more'],

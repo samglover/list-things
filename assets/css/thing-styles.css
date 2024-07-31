@@ -1,3 +1,28 @@
+.list-of-things__container.things-grid-cols-2 .list-of-things {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.list-of-things__container.things-grid-cols-3 .list-of-things {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 576px) {
+  .list-of-things__container.things-grid-cols-3 .list-of-things {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.list-of-things__container.things-grid-cols-4 .list-of-things {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+@media (max-width: 768px) {
+  .list-of-things__container.things-grid-cols-4 .list-of-things {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 576px) {
+  .list-of-things__container.things-grid-cols-4 .list-of-things {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .row {
   display: flex;
 }
@@ -62,34 +87,33 @@
   margin-bottom: 0;
 }
 
-.list-of-things_container.layout-grid .list-of-things {
+.list-of-things__container.layout-grid .list-of-things {
   display: grid;
   gap: var(--wp--preset--spacing--30);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.list-of-things_container.layout-grid .list-of-things .thing {
+.list-of-things__container.layout-grid .list-of-things .thing {
   display: flex;
   flex-direction: column;
   gap: var(--wp--preset--spacing--40);
 }
-.list-of-things_container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container {
+.list-of-things__container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.list-of-things_container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container img {
+.list-of-things__container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container img {
   height: 300px;
   object-fit: cover;
   width: 100%;
 }
-.list-of-things_container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-title__container > :first-child {
+.list-of-things__container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-title__container > :first-child {
   margin-top: 0;
 }
-.list-of-things_container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-title__container > :last-child {
+.list-of-things__container.layout-grid .list-of-things .thing.thing-has-thumbnail .thing-title__container > :last-child {
   margin-bottom: 0;
 }
-.list-of-things_container.layout-list .list-of-things .thing .thing-read-more-button {
+.list-of-things__container.layout-list .list-of-things .thing .thing-read-more-button {
   margin-bottom: var(--wp--preset--spacing--60);
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail {
   align-items: center;
   display: grid;
   gap: var(--wp--preset--spacing--40);
@@ -98,26 +122,26 @@
   margin-bottom: var(--wp--preset--spacing--60);
   min-height: 150px;
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container {
   background-color: rgba(0, 0, 0, 0.1);
   grid-area: thumbnail;
   height: 100%;
   overflow: clip;
   position: relative;
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container img {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-thumbnail__container img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container {
   grid-area: title;
   padding: var(--wp--preset--spacing--40) 0;
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container > :first-child {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container > :first-child {
   margin-top: 0;
 }
-.list-of-things_container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container > :last-child {
+.list-of-things__container.layout-list .list-of-things .thing.thing-has-thumbnail .thing-title__container > :last-child {
   margin-bottom: 0;
 }
 

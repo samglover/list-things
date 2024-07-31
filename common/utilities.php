@@ -13,6 +13,7 @@ function get_default_params($format = null) {
       's' => '',
     ],
     'options' => [
+      'grid_cols' => 3,
       'layout' => 'list',
       'show_excerpt' => false,
       'show_read_more' => false,

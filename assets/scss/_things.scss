@@ -38,12 +38,11 @@
   }
 }
 
-.list-of-things_container {
+.list-of-things__container {
   &.layout-grid {
     .list-of-things {
       display: grid;
       gap: $spacing-xs;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
     
       .thing {
         display: flex;

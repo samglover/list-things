@@ -8,19 +8,26 @@ function list_things($args, $options) {
   $options = wp_parse_args($options, $default_params['options']);
   $options['things_section_id'] = $things_section_id;
   $post_type_names = get_post_type_names($args['post_type']);
+  $div_classes = [
+    'list-of-things__container',
+    'layout-' . $options['layout'],
+  ];
+  if ($options['layout'] == 'grid') $div_classes[] = 'things-grid-cols-' . $options['grid_cols'];
   ?>
     <div 
       id="list-of-things-<?php echo $options['things_section_id']; ?>"
-      class="list-of-things_container layout-<?php echo $options['layout']; ?>"
+      class="<?php echo implode(' ', $div_classes); ?>"
       data-things-section-id="<?php echo $options['things_section_id']; ?>"
       data-things-nonce="<?php echo wp_create_nonce('things_nonce_' . $options['things_section_id']); ?>"
       data-things-args=<?php echo json_encode($args); ?>
       data-things-options=<?php echo json_encode($options); ?>
     >
-      <div class="search-sort-things row gap-sm wrap">
-        <?php if ($options['show_search']) search_things_form($args, $options); ?>
-        <?php if ($options['show_sort']) sort_things_form($args, $options); ?>
-      </div>
+      <?php if ($options['show_search'] || $options['show_sort']) { ?>
+        <div class="search-sort-things row gap-sm wrap">
+          <?php if ($options['show_search']) search_things_form($args, $options); ?>
+          <?php if ($options['show_sort']) sort_things_form($args, $options); ?>
+        </div>
+      <?php } ?>
       <div class="list-of-things">
         <?php echo get_things($args, $options); ?>
       </div>
