@@ -5,4 +5,5 @@ All notable changes to this project will be documented in this file. The format 
 ## 1.0.1 - 2024-09-16
 
 ### Changed
-* Updated flex-grid breakpoints.
+* Grid breakpoints updated.
+* Thing thumbnails in grid layouts are now constrained to a 16:9 aspect ratio.
