@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: List Things
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Sam Glover
  * Author URI: https://samglover.net
  * Text Domain: list-things
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Constants
  */
-define('LIST_THINGS_VERSION', '1.0.1');
+define('LIST_THINGS_VERSION', '1.0.2');
 define('LIST_THINGS_DIR_PATH', plugin_dir_path(__FILE__));
 define('LIST_THINGS_DIR_URL', plugin_dir_url(__FILE__));
 

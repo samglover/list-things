@@ -63,8 +63,15 @@ function list_things_shortcode($atts) {
 
 add_shortcode('list-child-pages', __NAMESPACE__ . '\list_child_pages_shortcode');
 function list_child_pages_shortcode($atts) {
+  $post__not_in = isset($atts['post__not_in']) ? preg_split('/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY) : false;
   $atts = shortcode_atts([
     'parent' => get_the_ID(),
   ], $atts);
-  return do_shortcode('[list-things post_type="page" post_parent="' . $atts['parent'] . '"]');
+  $atts = sanitize_array($atts);
+
+
+  $shortcode = '[list-things post_type="page" post_parent="' . $atts['parent'] . '"';
+  if ($post__not_in) $shortcode .= ' post__not_in=' . implode(',', $post__not_in);
+  $shortcode .= ']';
+  return do_shortcode($shortcode);
 }
