@@ -9,6 +9,7 @@ function get_default_params($format = null) {
       'post_parent' => null,
       'post_status' => 'publish',
       'post_type' => 'post',
+      'post__in' => null,
       'post__not_in' => null,
       'posts_per_page' => -1,
       's' => '',
@@ -21,9 +22,11 @@ function get_default_params($format = null) {
       'show_read_more' => false,
       'show_search' => false,
       'show_sort' => false,
+      'spacing' => false,
       'sort_buttons' => ['a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize'],
       'show_thumbnail' => false,
       'title_tag' => 'h3',
+      'classes' => false,
     ],
   ];
   if ($format == 'merged') $default_params = array_merge($default_params['args'], $default_params['options']);

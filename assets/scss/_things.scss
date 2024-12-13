@@ -19,7 +19,6 @@
       margin-top: 0;
     }
 
-
     &.thing-card {
       padding: $spacing-md;
       
@@ -88,10 +87,6 @@
   &.layout-list {
     .list-of-things {
       .thing {
-        .thing-read-more-button {
-          margin-bottom: $spacing-lg;
-        }
-
         &.thing-has-thumbnail {
           align-items: center;
           display: grid;

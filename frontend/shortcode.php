@@ -4,20 +4,24 @@ namespace List_Things;
 /** 
  * The following attributes can be a comma-delimited string:
  * * post_type
+ * * post__in
  * * post__not_in
  * * sort_buttons
+ * * classes
  */
 add_shortcode('list-things', __NAMESPACE__ . '\list_things_shortcode');
 function list_things_shortcode($atts) {
   $atts = shortcode_atts(get_default_params('merged'), $atts, 'list-things');
   $atts['post_status'] = preg_split('/, */', $atts['post_status'], -1, PREG_SPLIT_NO_EMPTY);
   $atts['post_type'] = preg_split('/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY);
+  $atts['post__in'] = $atts['post__in'] ? preg_split('/, */', $atts['post__in'], -1, PREG_SPLIT_NO_EMPTY) : '';
   $atts['post__not_in'] = $atts['post__not_in'] ? preg_split('/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY) : '';
   if (!is_array($atts['sort_buttons'])) $atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split('/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY) : '';
+  $atts['classes'] = $atts['classes'] ? preg_split('/, */', $atts['classes'], -1, PREG_SPLIT_NO_EMPTY) : '';
   $atts = sanitize_array($atts);
 
   // echo '<pre>';
-  //   var_dump($atts['sort_buttons']);
+  //   var_dump($atts);
   // echo '</pre>';
   
   $args = [
@@ -26,6 +30,7 @@ function list_things_shortcode($atts) {
     'post_parent' => $atts['post_parent'],
     'post_status' => $atts['post_status'],
     'post_type' => $atts['post_type'],
+    'post__in' => $atts['post__in'],
     'post__not_in' => $atts['post__not_in'],
     's' => $atts['s']
   ];
@@ -46,13 +51,26 @@ function list_things_shortcode($atts) {
     'show_search' => $atts['show_search'],
     'show_sort' => $atts['show_sort'],
     'sort_buttons' => $atts['sort_buttons'],
+    'spacing' => $atts['spacing'],
     'show_thumbnail' => $atts['show_thumbnail'],
     'title_tag' => $atts['title_tag'],
+    'classes' => $atts['classes'],
   ];
   
   // echo '<pre>';
   //   var_dump($options);
   // echo '</pre>';
+
+  wp_enqueue_style('list-things', LIST_THINGS_DIR_URL . 'assets/css/thing-styles.css', [], LIST_THINGS_VERSION);
+
+  // global $post;
+  // wp_register_script('search-things', LIST_THINGS_DIR_URL . 'assets/js/search-things.js', ['jquery'], LIST_THINGS_VERSION, true);
+  // wp_localize_script('search-things', 'vars', ['ajaxurl' => admin_url('admin-ajax.php')]);
+  // wp_enqueue_script('search-things');
+  
+  // wp_register_script('sort-things', LIST_THINGS_DIR_URL . 'assets/js/sort-things.js', ['jquery'], LIST_THINGS_VERSION, true);
+  // wp_localize_script('sort-things', 'vars', ['ajaxurl' => admin_url('admin-ajax.php')]);
+  // wp_enqueue_script('sort-things');
 
   ob_start();
     list_things($args, $options);

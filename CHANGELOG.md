@@ -2,13 +2,23 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
-## 1.0.2 - 2024-12-06
+## 0.2 - 2024-12-??
+
+### Changed
+* Enqueue stylesheets and scripts in the shortcode rather than trying to use `has_shortcode()`, which fails when adding a shortcode from a template file with `do_shortcode()`.
 
 ### Added
 * The `list-child-pages` shortcode can now exclude child pages by using the `post__not_in` attribute.
+* Three new action hooks for customizing the list of things:
+  `list_things_before_title`
+  `list_things_after_title`
+  `list_things_after_excerpt`
+* `post__in` shortcode attribute can be used to add a comma-separated list of post IDs.
+* `spacing` shortcode attribute now adds a class intended for spacing elements. Supports `gap-xxs` through `gap-xxl` by default. Uses margins instead of `gap` for .layout-list.
+* `classes` shortcode attribute can be used to add custom classes to the .list-of-things__container element.
 
 
-## 1.0.1 - 2024-09-16
+## 0.1 - 2024-09-16
 
 ### Changed
 * Grid breakpoints updated.

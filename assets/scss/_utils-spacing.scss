@@ -1,0 +1,31 @@
+@use 'sass:map';
+
+$sizes: (
+  'xxs': $spacing-xxs,
+  'xs': $spacing-xs,
+  'sm': $spacing-sm,
+  'md': $spacing-md,
+  'lg': $spacing-lg,
+  'xl': $spacing-xl,
+  'xxl': $spacing-xxl,
+);
+
+@each $size, $var in $sizes {
+  :not(.layout-list).gap-#{$size} {
+    gap: $var;
+  }
+
+  .layout-list.gap-#{$size} {
+    .list-of-things {
+      .thing {
+        &:not(:first-child) {
+          margin-top: $var;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: $var;
+        }
+      }
+    }
+  }
+}

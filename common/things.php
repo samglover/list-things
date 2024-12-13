@@ -5,14 +5,18 @@ function list_things($args, $options) {
   static $things_section_id = 42;
   $default_params = get_default_params();
   $args = wp_parse_args($args, $default_params['args']);
+  $args = sanitize_array($args);
   $options = wp_parse_args($options, $default_params['options']);
+  $options = sanitize_array($options);
   $options['things_section_id'] = $things_section_id;
   $post_type_names = get_post_type_names($args['post_type']);
   $div_classes = [
     'list-of-things__container',
     'layout-' . $options['layout'],
+    $options['spacing'],
   ];
   if ($options['layout'] == 'grid') $div_classes[] = 'things-grid-cols-' . $options['grid_cols'];
+  if ($options['classes']) $div_classes = array_merge($options['classes'], $div_classes);
   ?>
     <div 
       id="list-of-things-<?php echo $options['things_section_id']; ?>"
@@ -51,6 +55,7 @@ function get_things($args, $options) {
         $title_classes = [
           'thing-title',
           'entry-title',
+          'wp-block-heading',
         ];
         if ($options['hide_title']) $title_classes = 'screen-reader-text'
         ?>
@@ -61,10 +66,13 @@ function get_things($args, $options) {
               </div>  
             <?php } ?>
             <div class="thing-col thing-title__container">
+              <?php do_action('list_things_before_title'); ?>
               <<?php echo $options['title_tag']; ?> class="<?php echo implode(' ', $title_classes); ?>"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></<?php echo $options['title_tag']; ?>>
+              <?php do_action('list_things_after_title'); ?>
               <?php if ($options['show_excerpt'] && get_the_excerpt()) { ?>
                 <p class="thing-excerpt entry-excerpt"><?php echo get_the_excerpt(); ?></p>
-              <?php } ?>
+                <?php } ?>
+              <?php do_action('list_things_after_excerpt'); ?>
               <?php if ($options['show_read_more']) { ?>
                 <a href="<?php echo get_the_permalink(); ?>" class="button wp-element-button thing-read-more-button"><?php _e('Read more', 'list-things'); ?></a>
               <?php } ?>
