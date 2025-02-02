@@ -72,9 +72,9 @@ function list_things_shortcode( $atts ) {
 	wp_localize_script( 'search-things', 'vars', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	wp_enqueue_script( 'search-things' );
 
-	// wp_register_script('sort-things', LIST_THINGS_DIR_URL . 'assets/js/sort-things.js', ['jquery'], LIST_THINGS_VERSION, true);
-	// wp_localize_script('sort-things', 'vars', ['ajaxurl' => admin_url('admin-ajax.php')]);
-	// wp_enqueue_script('sort-things');
+	wp_register_script( 'sort-things', LIST_THINGS_DIR_URL . 'assets/js/sort-things.js', array( 'jquery' ), LIST_THINGS_VERSION, true );
+	wp_localize_script( 'sort-things', 'vars', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	wp_enqueue_script( 'sort-things' );
 
 	ob_start();
 	list_things( $args, $options );

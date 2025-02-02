@@ -17,20 +17,32 @@ function sort_things_form( $args, $options ) {
 			?>
 		</label>
 		<div class="row gap-xxs">
-			<?php echo wp_kses_post( get_sort_buttons( $options['sort_buttons'] ) ); ?>
+			<?php
+				echo wp_kses_post(
+					get_sort_buttons(
+						array(
+							'order'   => $args['order'],
+							'orderby' => $args['orderby'],
+						),
+						$options['sort_buttons']
+					)
+				);
+			?>
 		</div>
 	</div>
 	<?php
 }
 
-function get_sort_buttons( $selected_buttons ) {
-	if ( ! $selected_buttons ) {
+function get_sort_buttons( $order_vars, $buttons_to_show ) {
+	if ( ! $buttons_to_show ) {
 		return;
 	}
-	$selected_buttons = format_vals( $selected_buttons );
+	$buttons_to_show = format_vals( $buttons_to_show );
+
 	// echo '<pre>';
-	// var_dump($selected_buttons);
+	// var_dump( $buttons_to_show );
 	// echo '</pre>';
+
 	$all_buttons = array(
 		'a-to-z'     => array(
 			'order'   => 'ASC',
@@ -60,7 +72,8 @@ function get_sort_buttons( $selected_buttons ) {
 		),
 	);
 	ob_start();
-	foreach ( $selected_buttons as $button ) {
+
+	foreach ( $buttons_to_show as $button ) {
 		if ( ! array_key_exists( $button, $all_buttons ) ) {
 			continue;
 		}
@@ -71,10 +84,18 @@ function get_sort_buttons( $selected_buttons ) {
 				class="wp-element-button has-sm-font-size button things-sort-button<?php echo esc_attr( $class ); ?>"
 				data-things-order="<?php echo esc_attr( $all_buttons[ $button ]['order'] ); ?>"
 				data-things-orderby="<?php echo esc_attr( $all_buttons[ $button ]['orderby'] ); ?>"
+				<?php
+				if ( $order_vars['order'] === $all_buttons[ $button ]['order']
+						&& $order_vars['orderby'] === $all_buttons[ $button ]['orderby']
+					) {
+					echo esc_attr( 'disabled' );
+				}
+				?>
 			>
 				<?php echo esc_html( $all_buttons[ $button ]['label'] ); ?>
 			</button>
 		<?php
 	}
+
 	return ob_get_clean();
 }

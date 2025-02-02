@@ -1,5 +1,6 @@
 jQuery(document).ready(function ($) {
   if (!document.querySelector('.thing-sorter')) return;
+  
   $('.thing-sorter').each(function () {
     let thisSection = $(this).parents('.list-of-things__container'); 
     let nonce = {

@@ -26,7 +26,6 @@ define( 'LIST_THINGS_DIR_URL', plugin_dir_url( __FILE__ ) );
  */
 
 // Common
-// require_once(LIST_THINGS_DIR_PATH . 'common/search-things.php');
 require_once LIST_THINGS_DIR_PATH . 'common/things.php';
 require_once LIST_THINGS_DIR_PATH . 'common/ajax-things.php';
 require_once LIST_THINGS_DIR_PATH . 'common/utilities.php';

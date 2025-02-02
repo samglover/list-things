@@ -4,7 +4,7 @@ namespace List_Things;
 function get_default_params( $format = null ) {
 	$default_params = array(
 		'args'    => array(
-			'order'          => 'DESC',
+			'order'          => 'ASC',
 			'orderby'        => 'post_title',
 			'post_parent'    => null,
 			'post_status'    => 'publish',
