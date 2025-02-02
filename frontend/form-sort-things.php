@@ -27,7 +27,7 @@ function get_sort_buttons( $selected_buttons ) {
 	if ( ! $selected_buttons ) {
 		return;
 	}
-	$selected_buttons = sanitize_array( $selected_buttons );
+	$selected_buttons = format_vals( $selected_buttons );
 	// echo '<pre>';
 	// var_dump($selected_buttons);
 	// echo '</pre>';

@@ -42,7 +42,7 @@ function format_list_of_things( $things, $and_or = 'and' ) {
 	if ( ! is_array( $things ) ) {
 		return $things;
 	}
-	$things         = sanitize_array( $things );
+	$things         = format_vals( $things );
 	$formatted_list = $things[0];
 	if ( count( $things ) == 2 ) {
 		$formatted_list .= ' ' . $and_or . ' ' . $things[1];
@@ -57,7 +57,7 @@ function format_list_of_things( $things, $and_or = 'and' ) {
 	return $formatted_list;
 }
 
-function sanitize_array( $array ) {
+function format_vals( $array ) {
 	if ( ! $array ) {
 		return;
 	}
@@ -67,8 +67,9 @@ function sanitize_array( $array ) {
 		if ( is_bool( $val ) ) {
 			continue;
 		}
+
 		if ( is_array( $val ) ) {
-			$array[ $key ] = sanitize_array( $val );
+			$array[ $key ] = format_vals( $val );
 		} elseif ( is_string( $val ) ) {
 			$val = sanitize_text_field( $val );
 			if ( is_numeric( $val ) ) {
@@ -81,6 +82,7 @@ function sanitize_array( $array ) {
 			$array[ $key ] = $val;
 		}
 	}
+
 	return $array;
 }
 
@@ -104,5 +106,6 @@ function get_post_type_names( $post_types ) {
 	} else {
 		$post_type_names = 'things';
 	}
+
 	return $post_type_names;
 }

@@ -38,7 +38,9 @@ function search_things_form( $args, $options ) {
 						</span>
 					</button>
 				</div>
-				<button type='submit' class="wp-element-button has-sm-font-size">Search</button>
+				<button type='submit' class="wp-element-button has-sm-font-size">
+					<?php esc_html_e( 'Search', 'list-things' ); ?>
+				</button>
 			</div>
 		</form>
 	<?php

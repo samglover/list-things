@@ -5,9 +5,9 @@ function list_things($args, $options) {
   static $things_section_id = 42;
   $default_params = get_default_params();
   $args = wp_parse_args($args, $default_params['args']);
-  $args = sanitize_array($args);
+  $args = format_vals($args);
   $options = wp_parse_args($options, $default_params['options']);
-  $options = sanitize_array($options);
+  $options = format_vals($options);
   $options['things_section_id'] = $things_section_id;
   $post_type_names = get_post_type_names($args['post_type']);
   $div_classes = [

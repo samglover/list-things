@@ -20,7 +20,7 @@ function list_things_shortcode( $atts ) {
 		$atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split( '/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY ) : '';
 	}
 	$atts['classes'] = $atts['classes'] ? preg_split( '/, */', $atts['classes'], -1, PREG_SPLIT_NO_EMPTY ) : '';
-	$atts            = sanitize_array( $atts );
+	$atts            = format_vals( $atts );
 
 	// echo '<pre>';
 	// var_dump($atts);
@@ -93,7 +93,7 @@ function list_child_pages_shortcode( $atts ) {
 		),
 		$atts
 	);
-	$atts         = sanitize_array( $atts );
+	$atts         = format_vals( $atts );
 
 	$shortcode = '[list-things post_type="page" post_parent="' . $atts['parent'] . '"';
 	if ( $post__not_in ) {
