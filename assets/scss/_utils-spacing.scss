@@ -29,3 +29,44 @@ $sizes: (
     }
   }
 }
+
+$sides: (
+  'top',
+  'right',
+  'bottom',
+  'left'
+);
+
+.list-of-things__container {
+  @each $side in $sides {
+    @each $size, $var in $sizes {
+      .margin-#{$side}-#{$size} {
+        margin-#{$side}: $var;
+      }
+    }
+  }
+
+  :has(> :first-child.margin-top-0) {
+    margin-top: 0;
+  }
+
+  .margin-top-0 {
+    margin-top: 0;
+
+    > :first-child {
+      margin-top: 0;
+    }
+  }
+
+  :has(> :last-child.margin-bottom-0) {
+    margin-bottom: 0;
+  }
+
+  .margin-bottom-0 {
+    margin-bottom: 0;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

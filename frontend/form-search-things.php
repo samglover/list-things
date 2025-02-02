@@ -1,26 +1,45 @@
 <?php
 namespace List_Things;
 
-function search_things_form($args, $options) {
-  $post_type_names = format_list_of_things(get_post_type_names($args['post_type']), 'and');
-  ?>
-    <form id="thing-searcher-<?php echo $options['things_section_id']; ?>" class="thing-searcher" role="search" onsubmit="return false;">
-      <div class="row gap-xxs center-items">
-        <label for="search-things-<?php echo $options['things_section_id']; ?>"><?php printf(__('Search %s', 'list-things'), strtolower($post_type_names)); ?></label>
-        <button type="button" class="clear-search-things row center-items" style="display: none;">
-          <i><?php echo file_get_contents(LIST_THINGS_DIR_PATH . 'assets/images/close.svg'); ?></i>
-          <?php _e('Clear search', 'list-things'); ?></a></div>
-        </button>
-      <div class="row gap-xxs">
-        <input 
-          id="search-things-<?php echo $options['things_section_id']; ?>" 
-          name="search-things-input" 
-          class="search-things-input" 
-          type="search" 
-          <?php if (isset($args['s']) && !empty($args['s'])) echo 'value="' . $args['s'] . '"'; ?>
-        />
-        <button type='submit' class="wp-element-button">Search</button>
-      </div>
-    </form>
-  <?php
+function search_things_form( $args, $options ) {
+	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
+	?>
+		<form 
+			id="thing-searcher-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
+			class="thing-searcher" 
+			role="search" 
+			onsubmit="return false;"
+		>
+			<label class="margin-bottom-xxs" for="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>">
+				<?php
+				printf(
+					wp_kses_post(
+						// Translators: %s is the post type name.
+						__( 'Search %s', 'list-things' )
+					),
+					esc_html( strtolower( $post_type_name ) )
+				);
+				?>
+			</label>
+			<div class="row gap-xxs center-items">
+				<div class="input__container">
+					<input 
+						id="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
+						name="search-things-input" 
+						class="search-things-input" 
+						type="search" 
+						<?php if ( isset( $args['s'] ) && ! empty( $args['s'] ) ) { ?>
+							value="<?php esc_attr( $args['s'] ); ?>"
+						<?php } ?>
+					/>
+					<button type="button" class="clear-search-things row center-items" style="display: none;">
+						<span class="screen-reader-text">
+							<?php esc_html_e( 'Clear search', 'list-things' ); ?>
+						</span>
+					</button>
+				</div>
+				<button type='submit' class="wp-element-button has-sm-font-size">Search</button>
+			</div>
+		</form>
+	<?php
 }
