@@ -125,6 +125,7 @@ function get_things( $args, $options ) {
 						</a>
 					<?php } ?>
 				</div>
+				<?php do_action( 'list_things_after_title_container' ); ?>
 			</article>
 			<?php
 
