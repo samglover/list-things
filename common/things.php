@@ -53,23 +53,33 @@ function list_things( $args, $options ) {
 
 function get_things( $args, $options ) {
 	// echo '<pre>';
-	// var_dump($args);
+	// var_dump( $args );
 	// echo '</pre>';
+
 	$things_query = new \WP_Query( $args );
 
 	if ( $things_query->have_posts() ) :
 
 		ob_start();
+
 		while ( $things_query->have_posts() ) :
 			$things_query->the_post();
 
-			$post_classes = array( 'thing' );
-			if ( $options['layout'] == 'grid' ) {
+			$post_classes = get_post_class( 'thing' );
+
+			// Adds a class for the post type if it is not present. (For some reason AJAX queries stripthe post-type class.)
+			if ( ! in_array( get_post_type(), $post_classes, true ) ) {
+				$post_classes[] = get_post_type();
+			}
+
+			if ( 'grid' === $options['layout'] ) {
 				$post_classes[] = 'card thing-card';
 			}
+
 			if ( $options['show_excerpt'] ) {
 				$post_classes[] = 'thing-has-excerpt';
 			}
+
 			if ( $options['show_thumbnail'] && has_post_thumbnail() ) {
 				$post_classes[] = 'thing-has-thumbnail';
 			}
@@ -79,6 +89,7 @@ function get_things( $args, $options ) {
 				'entry-title',
 				'wp-block-heading',
 			);
+
 			if ( $options['hide_title'] ) {
 				$title_classes = 'screen-reader-text';
 			}

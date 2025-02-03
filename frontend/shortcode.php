@@ -77,6 +77,7 @@ function list_things_shortcode( $atts ) {
 	wp_enqueue_script( 'sort-things' );
 
 	ob_start();
+
 	list_things( $args, $options );
 	$list_of_things = ob_get_clean();
 

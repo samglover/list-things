@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
+## 0.3 - 2025-02-02
+
+### Added
+* Search and sort functionality.
+
+*Note: If using action hooks from a them or another plugin, the callback function must be available in the admin, or it will not work with the AJAX function that refreshes the list of things.*
+
+
 ## 0.2 - 2024-12-??
 
 ### Changed
