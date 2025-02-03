@@ -21,8 +21,8 @@ function search_things_form( $args, $options ) {
 				);
 				?>
 			</label>
-			<div class="row gap-xxs center-items">
-				<div class="input__container">
+			<div class="row gap-xxs center-items wrap">
+				<div class="search-thing-input__container">
 					<input 
 						id="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
 						name="search-things-input" 

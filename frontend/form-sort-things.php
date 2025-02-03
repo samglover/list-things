@@ -16,7 +16,7 @@ function sort_things_form( $args, $options ) {
 			);
 			?>
 		</label>
-		<div class="row gap-xxs">
+		<div class="row gap-xxs wrap">
 			<?php
 				echo wp_kses_post(
 					get_sort_buttons(

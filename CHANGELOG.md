@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
+## 0.3.1 - 2025-02-03
+
+### Fixed
+* Add max-width: 100% to search container rows so they wrap at narrow widths.
+* Sort buttons now wrap, but button text no longer wraps.
+
+
 ## 0.3 - 2025-02-02
 
 ### Added
