@@ -1,6 +1,21 @@
 <?php
+/**
+ * Handles searching things.
+ *
+ * @file       form-search-things.php
+ * @package    list-things
+ * @subpackage frontend
+ * @since      1.0.0
+ */
+
 namespace List_Things;
 
+/**
+ * Outputs the thing-searcher.
+ *
+ * @param array $args    Query arguments.
+ * @param array $options Output options.
+ */
 function search_things_form( $args, $options ) {
 	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
 	?>

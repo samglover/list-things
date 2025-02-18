@@ -1,17 +1,36 @@
 <?php
+/**
+ * Contains the following shortcodes:
+ * - list-things, the main shortcode
+ * - list-child-pages, a frequently used shorthand
+ *
+ * @file       shortcodes.php
+ * @package    list-things
+ * @subpackage frontend
+ * @since      1.0.0
+ */
+
 namespace List_Things;
 
-/**
- * The following attributes can be a comma-delimited string:
- * * post_type
- * * post__in
- * * post__not_in
- * * sort_buttons
- * * classes
- */
 add_shortcode( 'list-things', __NAMESPACE__ . '\list_things_shortcode' );
+/**
+ * Shortcode handler for listing things.
+ *
+ * @param array $atts Shortcode attributes.
+ *
+ * @return string HTML shortcode output.
+ */
 function list_things_shortcode( $atts ) {
-	$atts                 = shortcode_atts( get_default_params( 'merged' ), $atts, 'list-things' );
+	$atts = shortcode_atts( get_default_params( 'merged' ), $atts, 'list-things' );
+
+	/*
+	 * The following attributes can be a comma-delimited string in the shortcode:
+	 * - post_type
+	 * - post__in
+	 * - post__not_in
+	 * - sort_buttons
+	 * - classes
+	 */
 	$atts['post_status']  = preg_split( '/, */', $atts['post_status'], -1, PREG_SPLIT_NO_EMPTY );
 	$atts['post_type']    = preg_split( '/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY );
 	$atts['post__in']     = $atts['post__in'] ? preg_split( '/, */', $atts['post__in'], -1, PREG_SPLIT_NO_EMPTY ) : '';
@@ -86,6 +105,13 @@ function list_things_shortcode( $atts ) {
 
 
 add_shortcode( 'list-child-pages', __NAMESPACE__ . '\list_child_pages_shortcode' );
+/**
+ * Shortcode to list child pages.
+ *
+ * @param array $atts Shortcode attributes.
+ *
+ * @return string HTML shortcode output.
+ */
 function list_child_pages_shortcode( $atts ) {
 	$post__not_in = isset( $atts['post__not_in'] ) ? preg_split( '/, */', $atts['post__not_in'], -1, PREG_SPLIT_NO_EMPTY ) : false;
 	$atts         = shortcode_atts(
@@ -101,5 +127,6 @@ function list_child_pages_shortcode( $atts ) {
 		$shortcode .= ' post__not_in=' . implode( ',', $post__not_in );
 	}
 	$shortcode .= ']';
+
 	return do_shortcode( $shortcode );
 }

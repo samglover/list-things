@@ -38,7 +38,7 @@ function list_things( $args, $options ) {
 			?>
 			<?php
 			if ( $options['show_sort'] ) {
-				sort_things_form( $args, $options );}
+				sort_things( $args, $options );}
 			?>
 		</div>
 		<?php } ?>

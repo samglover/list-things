@@ -1,10 +1,30 @@
 <?php
+/**
+ * Handles sorting things.
+ *
+ * @file       form-sort-things.php
+ * @package    list-things
+ * @subpackage frontend
+ * @since      1.0.0
+ */
+
 namespace List_Things;
 
-function sort_things_form( $args, $options ) {
+/**
+ * Outputs the thing-sorter.
+ *
+ * @param array $args    Query arguments.
+ * @param array $options Output options.
+ */
+function sort_things( $args, $options ) {
 	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
 	?>
-	<div id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>" class="thing-sorter" role="search" onsubmit="return false;">
+	<div 
+		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
+		class="thing-sorter" 
+		role="search" 
+		onsubmit="return false;"
+	>
 		<label class="margin-bottom-xxs">
 			<?php
 			printf(
@@ -33,6 +53,14 @@ function sort_things_form( $args, $options ) {
 	<?php
 }
 
+/**
+ * Generates thing sorting buttons.
+ *
+ * @param array $order_vars      An array of order and orderby parameters.
+ * @param array $buttons_to_show An array of strings that identify the sorting buttons to.
+ *
+ * @return string HTML buttons.
+ */
 function get_sort_buttons( $order_vars, $buttons_to_show ) {
 	if ( ! $buttons_to_show ) {
 		return;
