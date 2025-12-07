@@ -4,7 +4,7 @@
 	"phpcs.standard": "WordPress",
 	"phpcbf.enable": true,
 	"phpcbf.documentFormattingProvider": true,
-	"phpcbf.onsave": true,
+	"phpcbf.onsave": false,
 	"phpcbf.executablePath": "./vendor/bin/phpcbf",
 	"phpcbf.standard": "WordPress",
 }
