@@ -151,14 +151,15 @@ function get_things( $args, $options ) {
 
 						<?php do_action( 'list_things_after_excerpt' ); ?>
 
-						<?php if ( $options['show_read_more'] ) { ?>
-							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="button wp-element-button thing-read-more-button">
-								<?php esc_html_e( 'Read more', 'list-things' ); ?>
-							</a>
-						<?php } ?>
 					</div>
 
 					<?php do_action( 'list_things_after_title_container' ); ?>
+					
+					<?php if ( $options['show_read_more'] ) { ?>
+						<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="button wp-element-button thing-read-more-button">
+							<?php esc_html_e( 'Read more', 'list-things' ); ?>
+						</a>
+					<?php } ?>
 				</article>
 			<?php
 		endwhile;
