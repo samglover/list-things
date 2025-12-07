@@ -1,5 +1,4 @@
-@import 'variables';
-@import 'flex-grid';
-@import 'things';
-@import 'search-sort-things';
-@import 'utils-spacing';
+@use 'flex-grid';
+@use 'things';
+@use 'search-sort-things';
+@use 'utils-spacing';

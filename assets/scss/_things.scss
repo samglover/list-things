@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 :where(.thing-card) { // Fallback thing card styles because they look goofy without a border at least.
   border: 1px solid LightSlateGray;
 }
