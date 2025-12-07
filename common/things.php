@@ -134,36 +134,38 @@ function get_things( $args, $options ) {
 						</div>  
 					<?php } ?>
 
-					<div class="thing-col thing-title__container">
-						<?php do_action( 'list_things_before_title' ); ?>
+					<div class="thing-col thing-content__container">
 
-						<?php if ( get_the_title() ) { ?>
-							<<?php echo esc_attr( $options['title_tag'] ); ?> class="<?php echo esc_attr( implode( ' ', $title_classes ) ); ?>">
-								<a href="<?php echo esc_url( get_the_permalink() ); ?>">
-								<?php echo esc_html( get_the_title() ); ?>
-								</a>
-							</<?php echo esc_attr( $options['title_tag'] ); ?>>
+						<div class="thing-col thing-title__container">
+							<?php do_action( 'list_things_before_title' ); ?>
+
+							<?php if ( get_the_title() ) { ?>
+								<<?php echo esc_attr( $options['title_tag'] ); ?> class="<?php echo esc_attr( implode( ' ', $title_classes ) ); ?>">
+									<a href="<?php echo esc_url( get_the_permalink() ); ?>">
+									<?php echo esc_html( get_the_title() ); ?>
+									</a>
+								</<?php echo esc_attr( $options['title_tag'] ); ?>>
+							<?php } ?>
+
+							<?php do_action( 'list_things_after_title' ); ?>
+
+							<?php if ( $options['show_excerpt'] && get_the_excerpt() ) { ?>
+								<p class="thing-excerpt entry-excerpt">
+									<?php echo wp_kses_post( get_the_excerpt() ); ?>
+								</p>
+							<?php } ?>
+
+							<?php do_action( 'list_things_after_excerpt' ); ?>
+
+						</div>
+
+						<?php do_action( 'list_things_after_title_container' ); ?>
+						
+						<?php if ( $options['show_read_more'] ) { ?>
+							<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="button wp-element-button thing-read-more-button">
+								<?php esc_html_e( 'Read more', 'list-things' ); ?>
+							</a>
 						<?php } ?>
-
-						<?php do_action( 'list_things_after_title' ); ?>
-
-						<?php if ( $options['show_excerpt'] && get_the_excerpt() ) { ?>
-							<p class="thing-excerpt entry-excerpt">
-								<?php echo wp_kses_post( get_the_excerpt() ); ?>
-							</p>
-						<?php } ?>
-
-						<?php do_action( 'list_things_after_excerpt' ); ?>
-
-					</div>
-
-					<?php do_action( 'list_things_after_title_container' ); ?>
-					
-					<?php if ( $options['show_read_more'] ) { ?>
-						<a href="<?php echo esc_url( get_the_permalink() ); ?>" class="button wp-element-button thing-read-more-button">
-							<?php esc_html_e( 'Read more', 'list-things' ); ?>
-						</a>
-					<?php } ?>
 				</article>
 			<?php
 		endwhile;
