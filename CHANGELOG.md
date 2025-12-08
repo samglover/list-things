@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
+## 0.4.0 - 2025-12-07
+
+### Added
+- Pagination!
+
+### Changed
+- The files in /common now comply with the WordPress PHP coding standards
+
 ## 0.3.1 - 2025-02-03
 
 ### Fixed

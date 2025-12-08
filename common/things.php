@@ -54,17 +54,18 @@ function list_things( $args, $options ) {
 		data-things-options=<?php echo esc_attr( wp_json_encode( $options ) ); ?>
 	>
 		<?php if ( $options['show_search'] || $options['show_sort'] ) { ?>
-		<div class="search-sort-things row gap-sm wrap">
-			<?php
-			if ( $options['show_search'] ) {
-				search_things_form( $args, $options );}
-			?>
-			<?php
-			if ( $options['show_sort'] ) {
-				sort_things( $args, $options );}
-			?>
-		</div>
+			<div class="search-sort-things row gap-sm wrap">
+				<?php
+				if ( $options['show_search'] ) {
+					search_things_form( $args, $options );}
+				?>
+				<?php
+				if ( $options['show_sort'] ) {
+					sort_things( $args, $options );}
+				?>
+			</div>
 		<?php } ?>
+
 		<div class="list-of-things">
 			<?php echo wp_kses_post( get_things( $args, $options ) ); ?>
 		</div>
@@ -114,16 +115,6 @@ function get_things( $args, $options ) {
 				$post_classes[] = 'thing-has-thumbnail';
 			}
 
-			$title_classes = array(
-				'thing-title',
-				'entry-title',
-				'wp-block-heading',
-			);
-
-			if ( $options['hide_title'] ) {
-				$title_classes = 'screen-reader-text';
-			}
-
 			?>
 				<article <?php post_class( $post_classes ); ?>>
 					<?php if ( $options['show_thumbnail'] && has_post_thumbnail() ) { ?>
@@ -140,6 +131,17 @@ function get_things( $args, $options ) {
 							<?php do_action( 'list_things_before_title' ); ?>
 
 							<?php if ( get_the_title() ) { ?>
+								<?php
+								$title_classes = array(
+									'thing-title',
+									'entry-title',
+									'wp-block-heading',
+								);
+
+								if ( $options['hide_title'] ) {
+									$title_classes = 'screen-reader-text';
+								}
+								?>
 								<<?php echo esc_attr( $options['title_tag'] ); ?> class="<?php echo esc_attr( implode( ' ', $title_classes ) ); ?>">
 									<a href="<?php echo esc_url( get_the_permalink() ); ?>">
 									<?php echo esc_html( get_the_title() ); ?>
@@ -169,7 +171,83 @@ function get_things( $args, $options ) {
 				</article>
 			<?php
 		endwhile;
+
+		if ( $options['paginate'] && $things_query->max_num_pages > 1 ) {
+			$current_page    = max( 1, $args['paged'] );
+			$post_type_names = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
+			$range           = 2; // Number of pages to show on each side of current page.
+			$total_pages     = $things_query->max_num_pages;
+			?>
+			<nav
+				class="things-pagination navigation pagination"
+				aria-label="<?php echo esc_attr( $post_type_names ); ?> pagination"
+				<?php if ( 'grid' === $options['layout'] ) { ?>
+					style="grid-column-start: 1; grid-column-end: <?php echo esc_attr( $options['grid_cols'] + 1 ); ?>;"
+				<?php } ?>
+			>
+				<h2 class="screen-reader-text"><?php echo esc_html( $post_type_names ); ?> pagination</h2>
+				<div class="nav-links things-pagination-links">
+					<?php
+					if ( $current_page > 1 ) {
+						printf(
+							'<button class="prev page-numbers" data-page="%1$s">%2$s</button> ',
+							esc_attr( $current_page - 1 ),
+							esc_html__( 'Previous', 'list-things' )
+						);
+					}
+
+					$range      = 2;
+					$dots_left  = false;
+					$dots_right = false;
+
+					for ( $i = 1; $i <= $total_pages; $i++ ) {
+						if ( intval( $current_page ) === $i ) {
+							printf(
+								'<span class="page-numbers current" aria-current="page">%s</span> ',
+								esc_html( $i )
+							);
+						} elseif (
+							1 === $i
+							|| $i === $total_pages
+							|| ( $i >= $current_page - $range
+								&& $i <= $current_page + $range
+								)
+						) {
+							printf(
+								'<button class="page-numbers" data-page="%1$s">%2$s</button> ',
+								esc_attr( $i ),
+								esc_html( $i )
+							);
+						} elseif (
+							$i < $current_page
+							&& ! $dots_left 
+						) {
+							echo '<span class="page-numbers dots">&hellip;</span> ';
+							$dots_left = true;
+						} elseif (
+							$i > $current_page
+							&& ! $dots_right
+						) {
+							echo '<span class="page-numbers dots">&hellip;</span> ';
+							$dots_right = true;
+						}
+					}
+
+					if ( $current_page < $total_pages ) {
+						printf(
+							'<button class="next page-numbers" data-page="%s">%s</button>',
+							esc_attr( $current_page + 1 ),
+							esc_html__( 'Next', 'list-things' )
+						);
+					}
+					?>
+				</div>
+			</nav>
+			<?php
+		}
+
 		$things = ob_get_clean();
+
 	else :
 		$post_type_names = format_list_of_things( get_post_type_names( $args['post_type'] ), 'or' );
 		ob_start();

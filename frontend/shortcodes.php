@@ -46,15 +46,18 @@ function list_things_shortcode( $atts ) {
 	// echo '</pre>';
 
 	$args = array(
-		'order'        => $atts['order'],
-		'orderby'      => $atts['orderby'],
-		'post_parent'  => $atts['post_parent'],
-		'post_status'  => $atts['post_status'],
-		'post_type'    => $atts['post_type'],
-		'post__in'     => $atts['post__in'],
-		'post__not_in' => $atts['post__not_in'],
-		's'            => $atts['s'],
+		'order'          => $atts['order'],
+		'orderby'        => $atts['orderby'],
+		'paged'          => $atts['paged'],
+		'post_parent'    => $atts['post_parent'],
+		'post_status'    => $atts['post_status'],
+		'post_type'      => $atts['post_type'],
+		'post__in'       => $atts['post__in'],
+		'post__not_in'   => $atts['post__not_in'],
+		'posts_per_page' => $atts['posts_per_page'],
+		's'              => $atts['s'],
 	);
+
 	foreach ( $args as $key => $val ) {
 		if ( empty( $val ) ) {
 			unset( $args[ $key ] );
@@ -70,6 +73,7 @@ function list_things_shortcode( $atts ) {
 		'hide_title'     => $atts['hide_title'],
 		'layout'         => $atts['layout'],
 		'show_excerpt'   => $atts['show_excerpt'],
+		'paginate'       => $atts['paginate'],
 		'show_read_more' => $atts['show_read_more'],
 		'show_search'    => $atts['show_search'],
 		'show_sort'      => $atts['show_sort'],
@@ -94,6 +98,10 @@ function list_things_shortcode( $atts ) {
 	wp_register_script( 'sort-things', LIST_THINGS_DIR_URL . 'assets/js/sort-things.js', array( 'jquery' ), LIST_THINGS_VERSION, true );
 	wp_localize_script( 'sort-things', 'vars', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	wp_enqueue_script( 'sort-things' );
+
+	wp_register_script( 'paginate-things', LIST_THINGS_DIR_URL . 'assets/js/paginate-things.js', array( 'jquery' ), LIST_THINGS_VERSION, true );
+	wp_localize_script( 'paginate-things', 'vars', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	wp_enqueue_script( 'paginate-things' );
 
 	ob_start();
 

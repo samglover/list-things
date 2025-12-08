@@ -21,19 +21,22 @@ function get_default_params( $format = null ) {
 		'args'    => array(
 			'order'          => 'ASC',
 			'orderby'        => 'post_title',
+			'paged'          => 1,
 			'post_parent'    => null,
 			'post_status'    => 'publish',
 			'post_type'      => 'post',
 			'post__in'       => null,
 			'post__not_in'   => null,
-			'posts_per_page' => -1,
+			'posts_per_page' => get_option( 'posts_per_page' ),
 			's'              => '',
 		),
 		'options' => array(
+			'classes'        => false,
 			'grid_cols'      => 3,
 			'hide_title'     => false,
 			'layout'         => 'list',
 			'show_excerpt'   => false,
+			'paginate'       => true,
 			'show_read_more' => false,
 			'show_search'    => false,
 			'show_sort'      => false,
@@ -41,7 +44,6 @@ function get_default_params( $format = null ) {
 			'sort_buttons'   => array( 'a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize' ),
 			'show_thumbnail' => false,
 			'title_tag'      => 'h3',
-			'classes'        => false,
 		),
 	);
 
@@ -70,13 +72,13 @@ function format_list_of_things( $things, $and_or = 'and' ) {
 	}
 
 	$things         = format_vals( $things );
+	$num_things     = count( $things );
 	$formatted_list = $things[0];
 
-	if ( 2 === count( $things ) ) {
+	if ( 2 === $num_things ) {
 		$formatted_list .= ' ' . $and_or . ' ' . $things[1];
-	} elseif ( count( $things ) > 2 ) {
-		$i          = 1;
-		$num_things = count( $things );
+	} elseif ( $num_things > 2 ) {
+		$i = 1;
 
 		while ( $i < $num_things - 1 ) {
 			$formatted_list .= ', ' . $things[ $i ];
