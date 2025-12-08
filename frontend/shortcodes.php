@@ -77,6 +77,7 @@ function list_things_shortcode( $atts ) {
 		'show_read_more' => $atts['show_read_more'],
 		'show_search'    => $atts['show_search'],
 		'show_sort'      => $atts['show_sort'],
+		'show_filters'   => $atts['show_filters'],
 		'sort_buttons'   => $atts['sort_buttons'],
 		'spacing'        => $atts['spacing'],
 		'show_thumbnail' => $atts['show_thumbnail'],
