@@ -2,10 +2,13 @@
 
 .search-sort-things {
   margin-bottom: $spacing-md;
+}
 
-  label {
-    font-size: $font-size-sm;
-  }
+.list-things-label {
+  font-size: $spacing-sm;
+  line-height: 1;
+  margin-top: 0;
+  margin-bottom: $spacing-xxs;
 }
 
 .thing-searcher {

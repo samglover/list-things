@@ -12,6 +12,7 @@ $font-size-xxl: var(--wp--preset--font-size--xxl);
 $font-size-huge: var(--wp--preset--font-size--huge);
 
 // Spacing
+$spacing-tiny: calc( .5 * var(--wp--preset--spacing--20) );
 $spacing-xxs: var(--wp--preset--spacing--20);
 $spacing-xs: var(--wp--preset--spacing--30);
 $spacing-sm: var(--wp--preset--spacing--40);
