@@ -1,0 +1,12 @@
+.things-pagination {
+	.page-numbers {
+		&:not(.current):not(.dots) {
+			background-color: inherit;
+		}
+	}
+
+	.list-of-things__container.layout-grid & {
+		grid-column-start: 1;
+		grid-column-end: -1;
+	}
+}

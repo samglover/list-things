@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 :where(.thing-card) { // Fallback thing card styles because they look goofy without a border at least.
   border: 1px solid LightSlateGray;
 }
@@ -13,115 +15,98 @@
 
 .list-of-things {
   margin-bottom: $spacing-lg;
+}
 
-  .thing {
-    .thing-title {
-      margin-top: 0;
-    }
-
-    &.thing-card {
-      padding: $spacing-md;
-      
-      &.thing-has-thumbnail {
-        padding: 0;
-
-        .thing-thumbnail__container {
-          aspect-ratio: 16 / 9;
-          margin: 0;
-          overflow: hidden;
-          padding: 0;
-        }
-        
-        .thing-title__container {
-          padding: 0 $spacing-md $spacing-md $spacing-md;
-        }
-      }
-      
-      .thing-col > :first-child {
-        margin-top: 0;
-      }
-
-      .thing-col > :last-child {
-        margin-bottom: 0;
-      }
-    }
+.thing-content__container {
+  > :last-child {
+    margin-bottom: 0;
   }
+}
+
+.thing-title__container {
+  > :first-child {
+    margin-top: 0;
+  }
+}
+
+.thing-title {
+  margin-top: 0;
 }
 
 .list-of-things__container {
   &.layout-grid {
     .list-of-things {
       display: grid;
-      gap: $spacing-xs;
+      gap: $spacing-sm;
+    }
     
-      .thing {
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-sm;
-    
-        &.thing-has-thumbnail {
-          .thing-thumbnail__container {
-            background-color: rgba(0, 0, 0, .1);
-    
-            img {
-              height: 100%;
-              object-fit: cover;
-              width: 100%;
-            }
-          }
+    .thing {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      
+      .thing-thumbnail__container {
+        aspect-ratio: 16 / 9;
+        background-color: rgba(0, 0, 0, .1);
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        width: 100%;
 
-          .thing-title__container {
-            > :first-child {
-              margin-top: 0;
-            }
-
-            > :last-child {
-              margin-bottom: 0;
-            }
-          }
+        img {
+          height: 100%;
+          object-fit: cover;
+          width: 100%;
         }
       }
+    }
+
+    .thing-content__container {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: $spacing-sm;
+      justify-content: space-between;
+      padding: $spacing-md $spacing-md $spacing-md;
+    }
+
+    .thing-read-more-button {
+      margin: 0;
     }
   }
 
   &.layout-list {
-    .list-of-things {
-      .thing {
-        &.thing-has-thumbnail {
-          align-items: center;
-          display: grid;
-          gap: $spacing-sm;
-          grid-template-areas: 'thumbnail title';
-          grid-template-columns: 1fr 3fr;
-          margin-bottom: $spacing-lg;
-          min-height: 150px;
-    
-          .thing-thumbnail__container {
-            background-color: rgba(0, 0, 0, .1);
-            grid-area: thumbnail;
-            height: 100%;
-            overflow: clip;
-            position: relative;
-    
-            img {
-              position: absolute;
-                top: 50%;
-              transform: translateY(-50%);
-            }
+    .thing {
+      margin-top: $spacing-lg;
+      margin-bottom: $spacing-lg;
+        
+      &.thing-has-thumbnail {
+        align-items: center;
+        display: grid;
+        gap: $spacing-sm;
+        grid-template-areas: 'thumbnail content';
+        grid-template-columns: 1fr 3fr;
+        min-height: 150px;
+  
+        .thing-thumbnail__container {
+          background-color: rgba(0, 0, 0, .1);
+          grid-area: thumbnail;
+          height: 100%;
+          overflow: clip;
+          position: relative;
+  
+          img {
+            position: absolute;
+              top: 50%;
+            transform: translateY(-50%);
           }
-    
-          .thing-title__container {
-            grid-area: title;
-            padding: $spacing-sm 0;
-
-            > :first-child {
-              margin-top: 0;
-            }
-
-            > :last-child {
-              margin-bottom: 0;
-            }
-          }
+        }
+  
+        .thing-content__container {
+          grid-area: content;
+          padding: $spacing-md 0;
         }
       }
     }

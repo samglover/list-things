@@ -1,8 +1,18 @@
 <?php
+/**
+ * Common AJAX functions for lists of things
+ *
+ * @file ajax-things.php
+ * @package List_Things
+ * @subpackage Common
+ * @since 0.1.0
+ */
+
 namespace List_Things;
 
-add_action( 'wp_ajax_new_get_things', __NAMESPACE__ . '\new_get_things' ); // Logged-in users.
-add_action( 'wp_ajax_nopriv_new_get_things', __NAMESPACE__ . '\new_get_things' ); // Not-logged-in users.
+/**
+ * Outputs a new list of things.
+ */
 function new_get_things() {
 	if ( ! isset( $_POST['_ajax_nonce'] ) ) {
 		exit( 'Missing nonce.' );
@@ -38,3 +48,6 @@ function new_get_things() {
 
 	die();
 }
+
+add_action( 'wp_ajax_new_get_things', __NAMESPACE__ . '\new_get_things' ); // Logged-in users.
+add_action( 'wp_ajax_nopriv_new_get_things', __NAMESPACE__ . '\new_get_things' ); // Not-logged-in users.

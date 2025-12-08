@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .list-of-things__container {
   &.things-grid-cols-2 {
     .list-of-things {
