@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
-## 0.4.0 - 2025-12-07
+## 0.4.0 - 2025-12-??
 
 ### Added
 - Pagination!
