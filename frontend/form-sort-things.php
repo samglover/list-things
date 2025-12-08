@@ -20,12 +20,10 @@ function sort_things( $args, $options ) {
 	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
 	?>
 	<div 
-		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
-		class="thing-sorter" 
-		role="search" 
-		onsubmit="return false;"
+		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>"
+		class="thing-sorter"
 	>
-		<label class="margin-bottom-xxs">
+		<p class="list-things-label">
 			<?php
 			printf(
 				wp_kses_post(
@@ -35,7 +33,7 @@ function sort_things( $args, $options ) {
 				esc_html( strtolower( $post_type_name ) )
 			);
 			?>
-		</label>
+		</p>
 		<div class="row gap-xxs wrap">
 			<?php
 				echo wp_kses_post(
