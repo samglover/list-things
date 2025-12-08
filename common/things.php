@@ -44,6 +44,10 @@ function list_things( $args, $options ) {
 		$div_classes = array_merge( $options['classes'], $div_classes );
 	}
 
+	if ( ! $options['paginate'] ) {
+		$args['posts_per_page'] = -1;
+	}
+
 	?>
 	<div 
 		id="list-of-things-<?php echo esc_attr( $options['things_section_id'] ); ?>"
@@ -220,7 +224,7 @@ function get_things( $args, $options ) {
 							);
 						} elseif (
 							$i < $current_page
-							&& ! $dots_left 
+							&& ! $dots_left
 						) {
 							echo '<span class="page-numbers dots">&hellip;</span> ';
 							$dots_left = true;

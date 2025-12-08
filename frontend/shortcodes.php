@@ -54,7 +54,7 @@ function list_things_shortcode( $atts ) {
 		'post_type'      => $atts['post_type'],
 		'post__in'       => $atts['post__in'],
 		'post__not_in'   => $atts['post__not_in'],
-		'posts_per_page' => $atts['posts_per_page'],
+		'posts_per_page' => $atts['paginate'] ? $atts['posts_per_page'] : -1,
 		's'              => $atts['s'],
 	);
 
