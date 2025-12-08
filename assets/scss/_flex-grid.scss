@@ -51,8 +51,13 @@
 .row {
   display: flex;
 
+  &.align-items-center,
   &.center-items {
     align-items: center;
+  }
+
+  &.align-items-end {
+    align-items: end;
   }
 
   &.wrap {

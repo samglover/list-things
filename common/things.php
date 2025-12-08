@@ -58,7 +58,7 @@ function list_things( $args, $options ) {
 		data-things-options=<?php echo esc_attr( wp_json_encode( $options ) ); ?>
 	>
 		<?php if ( $options['show_search'] || $options['show_sort'] ) { ?>
-			<div class="search-sort-things row gap-sm wrap">
+			<div class="search-sort-things row gap-sm align-items-end wrap">
 				<?php
 				if ( $options['show_search'] ) {
 					search_things_form( $args, $options );
