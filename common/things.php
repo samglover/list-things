@@ -57,7 +57,13 @@ function list_things( $args, $options ) {
 		data-things-args=<?php echo esc_attr( wp_json_encode( $args ) ); ?>
 		data-things-options=<?php echo esc_attr( wp_json_encode( $options ) ); ?>
 	>
-		<?php if ( $options['show_search'] || $options['show_sort'] ) { ?>
+		<?php
+		if (
+			$options['show_search']
+			|| $options['show_sort']
+			|| $options['show_filters']
+		) {
+			?>
 			<div class="search-sort-things row gap-sm align-items-end wrap">
 				<?php
 				if ( $options['show_search'] ) {
@@ -68,12 +74,17 @@ function list_things( $args, $options ) {
 					sort_things( $args, $options );
 				}
 
-				if ( $options['show_filters'] ) {
+				if (
+					$options['show_filters']
+					&& get_taxonomies( array( 'object_type' => $args['post_type'] ), 'names', 'or' )
+				) {
 					filter_things( $args, $options );
 				}
 				?>
 			</div>
-		<?php } ?>
+			<?php
+		}
+		?>
 
 		<div class="list-of-things">
 			<?php echo wp_kses_post( get_things( $args, $options ) ); ?>
