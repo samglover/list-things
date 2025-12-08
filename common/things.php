@@ -61,11 +61,16 @@ function list_things( $args, $options ) {
 			<div class="search-sort-things row gap-sm wrap">
 				<?php
 				if ( $options['show_search'] ) {
-					search_things_form( $args, $options );}
-				?>
-				<?php
+					search_things_form( $args, $options );
+				}
+
 				if ( $options['show_sort'] ) {
-					sort_things( $args, $options );}
+					sort_things( $args, $options );
+				}
+
+				if ( $options['show_filters'] ) {
+					filter_things( $args, $options );
+				}
 				?>
 			</div>
 		<?php } ?>
