@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 - The files in /common now comply with the WordPress PHP coding standards
+- Added `.thing-content__container` to make grid/card layout more simple
+- Simplified layout styles and made them easier to override
+
 
 ## 0.3.1 - 2025-02-03
 
