@@ -7,7 +7,7 @@
  * @file       shortcodes.php
  * @package    list-things
  * @subpackage frontend
- * @since      1.0.0
+ * @since      0.1.0
  */
 
 namespace List_Things;
