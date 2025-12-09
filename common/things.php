@@ -74,10 +74,7 @@ function list_things( $args, $options ) {
 					sort_things( $args, $options );
 				}
 
-				if (
-					$options['show_filters']
-					&& get_taxonomies( array( 'object_type' => $args['post_type'] ), 'names', 'or' )
-				) {
+				if ( $options['show_filters'] ) {
 					filter_things( $args, $options );
 				}
 				?>

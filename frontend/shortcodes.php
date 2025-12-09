@@ -30,6 +30,7 @@ function list_things_shortcode( $atts ) {
 	 * - post__not_in
 	 * - sort_buttons
 	 * - classes
+	 * - filters
 	 */
 	$atts['post_status']  = preg_split( '/, */', $atts['post_status'], -1, PREG_SPLIT_NO_EMPTY );
 	$atts['post_type']    = preg_split( '/, */', $atts['post_type'], -1, PREG_SPLIT_NO_EMPTY );
@@ -39,7 +40,13 @@ function list_things_shortcode( $atts ) {
 		$atts['sort_buttons'] = $atts['sort_buttons'] ? preg_split( '/, */', $atts['sort_buttons'], -1, PREG_SPLIT_NO_EMPTY ) : '';
 	}
 	$atts['classes'] = $atts['classes'] ? preg_split( '/, */', $atts['classes'], -1, PREG_SPLIT_NO_EMPTY ) : '';
-	$atts            = format_vals( $atts );
+	if (
+		$atts['filters']
+		&& 'all' !== trim( $atts['filters'] )
+	) {
+		$atts['filters'] = $atts['filters'] ? preg_split( '/, */', $atts['filters'], -1, PREG_SPLIT_NO_EMPTY ) : '';
+	}
+	$atts = format_vals( $atts );
 
 	// echo '<pre>';
 	// var_dump($atts);
@@ -71,13 +78,14 @@ function list_things_shortcode( $atts ) {
 	$options = array(
 		'grid_cols'      => $atts['grid_cols'],
 		'hide_title'     => $atts['hide_title'],
-		'layout'         => $atts['layout'],
 		'show_excerpt'   => $atts['show_excerpt'],
+		'layout'         => $atts['layout'],
 		'paginate'       => $atts['paginate'],
 		'show_read_more' => $atts['show_read_more'],
 		'show_search'    => $atts['show_search'],
 		'show_sort'      => $atts['show_sort'],
 		'show_filters'   => $atts['show_filters'],
+		'filters'        => $atts['filters'],
 		'sort_buttons'   => $atts['sort_buttons'],
 		'spacing'        => $atts['spacing'],
 		'show_thumbnail' => $atts['show_thumbnail'],

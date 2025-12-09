@@ -41,6 +41,7 @@ function get_default_params( $format = null ) {
 			'show_search'    => false,
 			'show_sort'      => false,
 			'show_filters'   => false,
+			'filters'        => 'all',
 			'spacing'        => false,
 			'sort_buttons'   => array( 'a-to-z', 'z-to-a', 'new-to-old', 'old-to-new', 'randomize' ),
 			'show_thumbnail' => false,

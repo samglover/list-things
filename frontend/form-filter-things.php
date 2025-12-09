@@ -17,19 +17,37 @@ namespace List_Things;
  * @param array $options Optional. Array of display options.
  */
 function filter_things( $args, $options ) {
-	$term_count = get_terms(
-		array(
-			'fields'     => 'count',
-			'hide_empty' => true,
-			'taxonomy'   => get_taxonomies( array( 'object_type' => $args['post_type'] ), 'names', 'or' ),
-		)
-	);
+	if ( 'all' === $options['filters'] ) {
+		if ( is_array( $args['post_type'] ) ) {
+			$taxonomies = array();
+			foreach ( $args['post_type'] as $post_type ) {
+				$taxonomies = array_merge( $taxonomies, get_taxonomies( array( 'object_type' => $args['post_type'] ), 'names' ) );
+			}
+			$taxonomies = array_unique( $taxonomies, SORT_STRING );
+		} else {
+			$taxonomies = get_taxonomies( array( 'object_type' => $args['post_type'] ), 'names' );
+		}
+	} else {
+		$taxonomies = $options['filters'];
+	}
+
+	$term_count = 0;
+	foreach ( $taxonomies as $taxonomy ) {
+		$tax_terms = get_terms(
+			array(
+				'hide_empty' => true,
+				'taxonomy'   => $taxonomy,
+			)
+		);
+
+		$term_count = $term_count + count( $tax_terms );
+	}
 
 	if ( ! $term_count || 0 === intval( $term_count ) ) {
 		return;
 	}
 
-	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
+	$post_type_name = format_list_of_things( $args['post_type'], 'and' );
 	?>
 	<div
 		class="thing-filters__button__container"
@@ -56,16 +74,22 @@ function filter_things( $args, $options ) {
 		onsubmit="return false;"
 	>
 		<?php
-		$taxonomies = get_taxonomies( array( 'object_type' => $args['post_type'] ), 'objects', 'or' );
-		foreach ( $taxonomies as $tax ) {
+		foreach ( $taxonomies as $taxonomy ) {
+			$tax_obj = get_taxonomy( $taxonomy );
+			if (
+				'all' !== $options['filters']
+				&& ! in_array( $taxonomy, $options['filters'], true )
+			) {
+				continue;
+			}
 			?>
-			<fieldset class="thing-filter">
-				<legend class="thing-filter__legend"><?php echo esc_attr( $tax->labels->name ); ?></legend>
+			<fieldset class="thing-filter <?php echo esc_attr( $tax_obj->name ); ?>-filter">
+				<legend class="thing-filter__legend"><?php echo esc_html( $tax_obj->labels->name ); ?></legend>
 				<?php
 					$terms = get_terms(
 						array(
 							'hide_empty' => true,
-							'taxonomy'   => $tax->name,
+							'taxonomy'   => $tax_obj->name,
 						)
 					);
 
@@ -77,7 +101,7 @@ function filter_things( $args, $options ) {
 								type="checkbox"
 							>
 							<label for="<?php echo esc_attr( $term->name ); ?>">
-								<?php esc_html_e( $term->name ); ?>
+								<?php echo esc_html( $term->name . ' (' . $term->count . ')' ); ?>
 							</label>
 						</div>
 						<?php
