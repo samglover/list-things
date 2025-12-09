@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: List Things
- * Version:     0.3.1
+ * Version:     0.4.0
  * Author:      Sam Glover
  * Author URI:  https://samglover.net
  * Text domain: list-things
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
  * Constants
  */
-define( 'LIST_THINGS_VERSION', '0.3.1' );
+define( 'LIST_THINGS_VERSION', '0.4.0' );
 define( 'LIST_THINGS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LIST_THINGS_DIR_URL', plugin_dir_url( __FILE__ ) );
 
