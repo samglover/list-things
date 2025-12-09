@@ -5,7 +5,7 @@
  * @file       form-search-things.php
  * @package    list-things
  * @subpackage frontend
- * @since      1.0.0
+ * @since      0.1.0
  */
 
 namespace List_Things;
@@ -25,7 +25,7 @@ function search_things_form( $args, $options ) {
 			role="search" 
 			onsubmit="return false;"
 		>
-			<label class="margin-bottom-xxs" for="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>">
+			<label class="list-things-label" for="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>">
 				<?php
 				printf(
 					wp_kses_post(
@@ -36,7 +36,7 @@ function search_things_form( $args, $options ) {
 				);
 				?>
 			</label>
-			<div class="row gap-xxs center-items wrap">
+			<div class="row gap-xxs align-items-center wrap">
 				<div class="search-thing-input__container">
 					<input 
 						id="search-things-<?php echo esc_attr( $options['things_section_id'] ); ?>" 

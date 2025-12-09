@@ -8,7 +8,7 @@
  *
  * @file    list-things.php
  * @package List_Things
- * @since   1.0.0
+ * @since   0.1.0
  */
 
 namespace List_Things;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
  * Constants
  */
-define( 'LIST_THINGS_VERSION', '0.3.2' );
+define( 'LIST_THINGS_VERSION', '0.3.1' );
 define( 'LIST_THINGS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LIST_THINGS_DIR_URL', plugin_dir_url( __FILE__ ) );
 
@@ -34,5 +34,6 @@ require_once LIST_THINGS_DIR_PATH . 'common/utilities.php';
 if ( ! is_admin() ) {
 	require_once LIST_THINGS_DIR_PATH . 'frontend/form-search-things.php';
 	require_once LIST_THINGS_DIR_PATH . 'frontend/form-sort-things.php';
+	require_once LIST_THINGS_DIR_PATH . 'frontend/form-filter-things.php';
 	require_once LIST_THINGS_DIR_PATH . 'frontend/shortcodes.php';
 }

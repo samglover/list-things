@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
-## 0.4.0 - 2025-12-07
+## 0.4.0 - 2025-12-??
 
 ### Added
-- Pagination!
+- Pagination! Pagination is now enabled by default. Disable it with the `paginate` option (i.e., `paginate=false` in the shortcode). Change the number of things per page with the `posts_per_page` attribute.
+- Filter by terms. Enable with the `show_filters` attribute. Specify the taxonomies you want to include with the `filters` attribute.
 
 ### Changed
 - The files in /common now comply with the WordPress PHP coding standards

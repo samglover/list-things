@@ -57,18 +57,31 @@ function list_things( $args, $options ) {
 		data-things-args=<?php echo esc_attr( wp_json_encode( $args ) ); ?>
 		data-things-options=<?php echo esc_attr( wp_json_encode( $options ) ); ?>
 	>
-		<?php if ( $options['show_search'] || $options['show_sort'] ) { ?>
-			<div class="search-sort-things row gap-sm wrap">
+		<?php
+		if (
+			$options['show_search']
+			|| $options['show_sort']
+			|| $options['show_filters']
+		) {
+			?>
+			<div class="search-sort-things row gap-sm align-items-end wrap">
 				<?php
 				if ( $options['show_search'] ) {
-					search_things_form( $args, $options );}
-				?>
-				<?php
+					search_things_form( $args, $options );
+				}
+
 				if ( $options['show_sort'] ) {
-					sort_things( $args, $options );}
+					sort_things( $args, $options );
+				}
+
+				if ( $options['show_filters'] ) {
+					filter_things( $args, $options );
+				}
 				?>
 			</div>
-		<?php } ?>
+			<?php
+		}
+		?>
 
 		<div class="list-of-things">
 			<?php echo wp_kses_post( get_things( $args, $options ) ); ?>
@@ -89,10 +102,6 @@ function list_things( $args, $options ) {
  * @return string
  */
 function get_things( $args, $options ) {
-	// echo '<pre>';
-	// var_dump( $args );
-	// echo '</pre>';
-
 	$things_query = new \WP_Query( $args );
 
 	if ( $things_query->have_posts() ) :

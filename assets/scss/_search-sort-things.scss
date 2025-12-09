@@ -2,10 +2,13 @@
 
 .search-sort-things {
   margin-bottom: $spacing-md;
+}
 
-  label {
-    font-size: $font-size-sm;
-  }
+.list-things-label {
+  font-size: $spacing-sm;
+  line-height: 1;
+  margin-top: 0;
+  margin-bottom: $spacing-xxs;
 }
 
 .thing-searcher {
@@ -22,10 +25,10 @@
   
   .clear-search-things {
     background-color: transparent;
-    background-image: url("../images/close.svg");
+    background-image: url("../images/close-opaque.svg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 75%;
+    background-size: 50%;
     border: none;
     box-shadow: none;
     display: inline-block;

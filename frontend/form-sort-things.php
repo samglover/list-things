@@ -5,7 +5,7 @@
  * @file       form-sort-things.php
  * @package    list-things
  * @subpackage frontend
- * @since      1.0.0
+ * @since      0.1.0
  */
 
 namespace List_Things;
@@ -20,12 +20,10 @@ function sort_things( $args, $options ) {
 	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
 	?>
 	<div 
-		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>" 
-		class="thing-sorter" 
-		role="search" 
-		onsubmit="return false;"
+		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>"
+		class="thing-sorter"
 	>
-		<label class="margin-bottom-xxs">
+		<p class="list-things-label">
 			<?php
 			printf(
 				wp_kses_post(
@@ -35,7 +33,7 @@ function sort_things( $args, $options ) {
 				esc_html( strtolower( $post_type_name ) )
 			);
 			?>
-		</label>
+		</p>
 		<div class="row gap-xxs wrap">
 			<?php
 				echo wp_kses_post(
@@ -66,10 +64,6 @@ function get_sort_buttons( $order_vars, $buttons_to_show ) {
 		return;
 	}
 	$buttons_to_show = format_vals( $buttons_to_show );
-
-	// echo '<pre>';
-	// var_dump( $buttons_to_show );
-	// echo '</pre>';
 
 	$all_buttons = array(
 		'a-to-z'     => array(
