@@ -65,10 +65,6 @@ function get_sort_buttons( $order_vars, $buttons_to_show ) {
 	}
 	$buttons_to_show = format_vals( $buttons_to_show );
 
-	// echo '<pre>';
-	// var_dump( $buttons_to_show );
-	// echo '</pre>';
-
 	$all_buttons = array(
 		'a-to-z'     => array(
 			'order'   => 'ASC',

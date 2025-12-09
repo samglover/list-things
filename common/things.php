@@ -102,10 +102,6 @@ function list_things( $args, $options ) {
  * @return string
  */
 function get_things( $args, $options ) {
-	// echo '<pre>';
-	// var_dump( $args );
-	// echo '</pre>';
-
 	$things_query = new \WP_Query( $args );
 
 	if ( $things_query->have_posts() ) :

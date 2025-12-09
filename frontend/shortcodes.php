@@ -48,10 +48,6 @@ function list_things_shortcode( $atts ) {
 	}
 	$atts = format_vals( $atts );
 
-	// echo '<pre>';
-	// var_dump($atts);
-	// echo '</pre>';
-
 	$args = array(
 		'order'          => $atts['order'],
 		'orderby'        => $atts['orderby'],
@@ -71,10 +67,6 @@ function list_things_shortcode( $atts ) {
 		}
 	}
 
-	// echo '<pre>';
-	// var_dump($args);
-	// echo '</pre>';
-
 	$options = array(
 		'grid_cols'      => $atts['grid_cols'],
 		'hide_title'     => $atts['hide_title'],
@@ -92,10 +84,6 @@ function list_things_shortcode( $atts ) {
 		'title_tag'      => $atts['title_tag'],
 		'classes'        => $atts['classes'],
 	);
-
-	// echo '<pre>';
-	// var_dump($options);
-	// echo '</pre>';
 
 	wp_enqueue_style( 'list-things', LIST_THINGS_DIR_URL . 'assets/css/thing-styles.css', array(), LIST_THINGS_VERSION );
 

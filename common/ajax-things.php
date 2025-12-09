@@ -36,10 +36,6 @@ function new_get_things() {
 	$args    = format_vals( map_deep( wp_unslash( $_POST['args'] ), 'sanitize_text_field' ) );
 	$options = format_vals( map_deep( wp_unslash( $_POST['options'] ), 'sanitize_text_field' ) );
 
-	// echo '<pre>';
-	// var_dump( $args );
-	// echo '</pre>';
-
 	?>
 		<div class="list-of-things">
 			<?php echo wp_kses_post( get_things( $args, $options ) ); ?>
