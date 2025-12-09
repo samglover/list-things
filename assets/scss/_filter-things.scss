@@ -24,15 +24,48 @@
 	}
 }
 
-.thing-filters__form {
+.thing-filters__form__container {
 	display: none;
 	min-width: 100%;
 	transform-origin: top;
 
 	&.open {
 		animation: growDown 150ms ease-in-out forwards;
-		display: flex;
 	}
+}
+
+.reset-thing-filters__button {
+	align-items: center;
+	appearance: none;
+	-webkit-appearance: none;
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	display: inline-flex;
+	flex-wrap: nowrap;
+	gap: calc( .5 * $spacing-tiny );
+	margin: 0 0 0 $spacing-xxs;
+	padding: 0;
+	text-decoration: none !important;
+
+	&:not(:hover) {
+		opacity: .5;
+	}
+
+	&::before {
+		background-image: url("../images/add-thin-black.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		content: '';
+		display: inline-block;
+		height: .8em;
+		width: .8em;
+    transform: rotate(45deg);
+	}
+}
+
+.thing-filters__form {
+	display: flex;
 }
 
 .thing-filter {
