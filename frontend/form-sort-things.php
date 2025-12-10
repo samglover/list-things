@@ -17,7 +17,20 @@ namespace List_Things;
  * @param array $options Output options.
  */
 function sort_things( $args, $options ) {
-	$post_type_name = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
+	$post_type_names = format_list_of_things( get_post_type_names( $args['post_type'] ), 'and' );
+
+	$buttons = get_sort_buttons(
+		array(
+			'order'   => $args['order'],
+			'orderby' => $args['orderby'],
+		),
+		$options['sort_buttons']
+	);
+
+	if ( ! $buttons ) {
+		return;
+	}
+
 	?>
 	<div 
 		id="thing-sorter-<?php echo esc_attr( $options['things_section_id'] ); ?>"
@@ -30,7 +43,7 @@ function sort_things( $args, $options ) {
 					// Translators: %s is the post type name.
 					__( 'Sort %s', 'list-things' )
 				),
-				esc_html( strtolower( $post_type_name ) )
+				esc_html( strtolower( $post_type_names ) )
 			);
 			?>
 		</p>
@@ -79,12 +92,12 @@ function get_sort_buttons( $order_vars, $buttons_to_show ) {
 		'new-to-old' => array(
 			'order'   => 'DESC',
 			'orderby' => 'date',
-			'label'   => __( 'New to Old', 'list-things' ),
+			'label'   => __( 'New to old', 'list-things' ),
 		),
 		'old-to-new' => array(
 			'order'   => 'ASC',
 			'orderby' => 'date',
-			'label'   => __( 'Old to New', 'list-things' ),
+			'label'   => __( 'Old to new', 'list-things' ),
 		),
 		'randomize'  => array(
 			'class'   => 'things-randomize-button',
@@ -119,5 +132,11 @@ function get_sort_buttons( $order_vars, $buttons_to_show ) {
 		<?php
 	}
 
-	return ob_get_clean();
+	$buttons = ob_get_clean();
+
+	if ( ! empty( $buttons ) ) {
+		return $buttons;
+	} else {
+		return false;
+	}
 }
