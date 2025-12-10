@@ -79,12 +79,12 @@ function get_sort_buttons( $order_vars, $buttons_to_show ) {
 		'new-to-old' => array(
 			'order'   => 'DESC',
 			'orderby' => 'date',
-			'label'   => __( 'New to Old', 'list-things' ),
+			'label'   => __( 'New to old', 'list-things' ),
 		),
 		'old-to-new' => array(
 			'order'   => 'ASC',
 			'orderby' => 'date',
-			'label'   => __( 'Old to New', 'list-things' ),
+			'label'   => __( 'Old to new', 'list-things' ),
 		),
 		'randomize'  => array(
 			'class'   => 'things-randomize-button',
