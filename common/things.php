@@ -181,6 +181,7 @@ function get_things( $args, $options ) {
 								<?php esc_html_e( 'Read more', 'list-things' ); ?>
 							</a>
 						<?php } ?>
+					</div>
 				</article>
 			<?php
 		endwhile;

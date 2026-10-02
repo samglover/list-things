@@ -101,7 +101,7 @@ function filter_things( $args, $options ) {
 								'taxonomy'   => $tax_obj->name,
 							)
 						);
-	
+
 					foreach ( $terms as $term ) {
 						$term_id = $options['things_section_id'] . '__' . $tax_obj->name . '__' . $term->name;
 						?>

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
+## 0.4.1 - 2026-10-01
+
+### Fixed
+- Added a missing `</div>` closing tag
+
+
 ## 0.4.0 - 2025-12-??
 
 ### Added
