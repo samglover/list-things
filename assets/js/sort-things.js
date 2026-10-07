@@ -3,10 +3,6 @@ jQuery(document).ready(function ($) {
   
   $('.thing-sorter').each(function () {
     let thisSection = $(this).parents('.list-of-things__container'); 
-    let nonce = {
-      nonce: thisSection.data('thingsNonce'),
-      nonce_action: 'things_nonce_' + thisSection.data('thingsSectionId'),
-    }
     let args = thisSection.data('thingsArgs');
     let options = thisSection.data('thingsOptions');
     
@@ -19,19 +15,17 @@ jQuery(document).ready(function ($) {
         args.order = $(this).data('thingsOrder');
         args.orderby = $(this).data('thingsOrderby');
         options.sorted = false;
-        sortThings_ajax(nonce, args, options);
+        sortThings_ajax(args, options);
       });
     });
   });
 
-  function sortThings_ajax(nonce, args, options) {
+  function sortThings_ajax(args, options) {
     let thisSection = '#list-of-things-' + options.things_section_id;
     $.ajax({
       type: 'POST',
       url: vars.ajaxurl,
       data: {
-        _ajax_nonce: nonce.nonce,
-        _ajax_nonce_action: nonce.nonce_action,
         action: 'new_get_things',
         args: args,
         options: options,

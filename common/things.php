@@ -53,7 +53,6 @@ function list_things( $args, $options ) {
 		id="list-of-things-<?php echo esc_attr( $options['things_section_id'] ); ?>"
 		class="<?php echo esc_attr( implode( ' ', $div_classes ) ); ?>"
 		data-things-section-id="<?php echo esc_attr( $options['things_section_id'] ); ?>"
-		data-things-nonce="<?php echo esc_attr( wp_create_nonce( 'things_nonce_' . $options['things_section_id'] ) ); ?>"
 		data-things-args=<?php echo esc_attr( wp_json_encode( $args ) ); ?>
 		data-things-options=<?php echo esc_attr( wp_json_encode( $options ) ); ?>
 	>
