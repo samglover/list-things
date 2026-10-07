@@ -3,10 +3,6 @@ jQuery(document).ready(function ($) {
   
   $('.thing-filters__form').each(function () {
     let thisSection = $(this).parents('.list-of-things__container');
-    let nonce = {
-      nonce: thisSection.data('thingsNonce'),
-      nonce_action: 'things_nonce_' + thisSection.data('thingsSectionId'),
-    }
     let args = thisSection.data('thingsArgs');
     let options = thisSection.data('thingsOptions');
 
@@ -23,21 +19,21 @@ jQuery(document).ready(function ($) {
 		
 		$(resetFiltersButton).click(function (event) {
 			event.preventDefault();
-			resetFilters(nonce, args, options);
+			resetFilters(args, options);
 		});
 		
 		$(thingFiltersForm).on('change', 'input', function () {
 			console.log(args);
 			args = updateTaxQuery(args, options.things_section_id);
 			console.log(args);
-			filterThings_ajax(nonce, args, options);
+			filterThings_ajax(args, options);
 		});
 	});
 	
-	function resetFilters(nonce, args, options) {
+	function resetFilters(args, options) {
 		$('#' + options.things_section_id + '__thing-filters__form')[0].reset();
 		delete args.tax_query;
-		filterThings_ajax(nonce, args, options)
+		filterThings_ajax(args, options)
 	}
 	
 	function updateTaxQuery(args, sectionID) {
@@ -66,14 +62,12 @@ jQuery(document).ready(function ($) {
 		return args;
 	}
 
-	function filterThings_ajax(nonce, args, options) {
+	function filterThings_ajax(args, options) {
     let thisSection = '#list-of-things-' + options.things_section_id;
     $.ajax({
       type: 'POST',
       url: vars.ajaxurl,
       data: {
-        _ajax_nonce: nonce.nonce,
-        _ajax_nonce_action: nonce.nonce_action,
         action: 'new_get_things',
         args: args,
         options: options,
