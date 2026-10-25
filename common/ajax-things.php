@@ -41,9 +41,9 @@ function new_get_things() {
  * Limits AJAX query arguments to the ones List Things uses, and to post types
  * and statuses the current user is allowed to see.
  *
- * Without this, anyone could request drafts, private posts, or non-public
- * post types, because WP_Query does not check permissions for an explicitly
- * requested post_status.
+ * Without this, anyone could request drafts, private posts, or internal post
+ * types, because WP_Query does not check permissions for an explicitly
+ * requested post_type or post_status.
  *
  * @param array $args Query arguments from the AJAX request.
  *
@@ -59,11 +59,22 @@ function restrict_query_args( $args ) {
 	$args           = array_intersect_key( $args, array_flip( $allowed_args ) );
 
 	$post_types = isset( $args['post_type'] ) ? (array) $args['post_type'] : array( $default_params['args']['post_type'] );
+	$post_types = normalize_query_vals( $post_types );
+
+	// Expand 'any' the same way WP_Query does, so each post type gets checked.
+	if ( in_array( 'any', $post_types, true ) ) {
+		$post_types = array_values( get_post_types( array( 'exclude_from_search' => false ) ) );
+	}
+
+	// Non-public post types must have an admin screen, which excludes internal types like revisions and privacy requests.
 	$post_types = array_filter(
 		$post_types,
 		function ( $post_type ) {
 			$post_type_obj = get_post_type_object( $post_type );
-			return $post_type_obj && ( is_post_type_viewable( $post_type_obj ) || current_user_can( $post_type_obj->cap->edit_posts ) );
+			return $post_type_obj && (
+				is_post_type_viewable( $post_type_obj )
+				|| ( $post_type_obj->show_ui && current_user_can( $post_type_obj->cap->edit_posts ) )
+			);
 		}
 	);
 
@@ -72,30 +83,32 @@ function restrict_query_args( $args ) {
 	}
 
 	$post_statuses = isset( $args['post_status'] ) ? (array) $args['post_status'] : array( $default_params['args']['post_status'] );
+	$post_statuses = normalize_query_vals( $post_statuses );
 
-	// Normalize statuses the same way WP_Query does, so the checks below see what it will query.
-	$post_statuses = array_unique( array_map( 'sanitize_key', array_map( 'strval', $post_statuses ) ) );
+	// Expand 'any' the same way WP_Query does, so each status gets checked.
+	if ( in_array( 'any', $post_statuses, true ) ) {
+		$post_statuses = array_values( get_post_stati( array( 'exclude_from_search' => false ) ) );
+	}
+
+	// Mirrors the read_post capability: public statuses are readable, private statuses require read_private_posts, and others require edit_others_posts.
 	$post_statuses = array_filter(
 		$post_statuses,
 		function ( $post_status ) use ( $post_types ) {
-			if ( 'publish' === $post_status ) {
-				return true;
-			}
+			$post_status_obj = get_post_status_object( $post_status );
 
 			// WP_Query skips status filtering entirely when no requested status is registered.
-			if ( 'any' !== $post_status && ! in_array( $post_status, get_post_stati(), true ) ) {
+			if ( ! $post_status_obj ) {
 				return false;
+			}
+
+			if ( $post_status_obj->public ) {
+				return true;
 			}
 
 			foreach ( $post_types as $post_type ) {
 				$cap = get_post_type_object( $post_type )->cap;
 
-				// 'any' includes private posts.
-				if ( in_array( $post_status, array( 'private', 'any' ), true ) && ! current_user_can( $cap->read_private_posts ) ) {
-					return false;
-				}
-
-				if ( 'private' !== $post_status && ! current_user_can( $cap->edit_others_posts ) ) {
+				if ( ! current_user_can( $post_status_obj->private ? $cap->read_private_posts : $cap->edit_others_posts ) ) {
 					return false;
 				}
 			}
@@ -112,6 +125,18 @@ function restrict_query_args( $args ) {
 	$args['post_status'] = array_values( $post_statuses );
 
 	return $args;
+}
+
+/**
+ * Normalizes post types or statuses the same way WP_Query does, so permission
+ * checks see what it will actually query.
+ *
+ * @param array $vals Post types or statuses.
+ *
+ * @return array
+ */
+function normalize_query_vals( $vals ) {
+	return array_values( array_unique( array_map( 'sanitize_key', array_map( 'strval', $vals ) ) ) );
 }
 
 add_action( 'wp_ajax_new_get_things', __NAMESPACE__ . '\new_get_things' ); // Logged-in users.
