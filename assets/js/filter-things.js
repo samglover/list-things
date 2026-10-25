@@ -23,9 +23,7 @@ jQuery(document).ready(function ($) {
 		});
 		
 		$(thingFiltersForm).on('change', 'input', function () {
-			console.log(args);
 			args = updateTaxQuery(args, options.things_section_id);
-			console.log(args);
 			filterThings_ajax(args, options);
 		});
 	});
@@ -33,7 +31,7 @@ jQuery(document).ready(function ($) {
 	function resetFilters(args, options) {
 		$('#' + options.things_section_id + '__thing-filters__form')[0].reset();
 		delete args.tax_query;
-		filterThings_ajax(args, options)
+		filterThings_ajax(args, options);
 	}
 	
 	function updateTaxQuery(args, sectionID) {
