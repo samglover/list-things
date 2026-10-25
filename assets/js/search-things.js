@@ -2,10 +2,6 @@ jQuery(document).ready(function ($) {
   if (!document.querySelector('.thing-searcher')) return;
   $('.thing-searcher').each(function () {
     let thisSection = $(this).parents('.list-of-things__container'); 
-    let nonce = {
-      nonce: thisSection.data('thingsNonce'),
-      nonce_action: 'things_nonce_' + thisSection.data('thingsSectionId'),
-    }
     let args = thisSection.data('thingsArgs');
     let options = thisSection.data('thingsOptions');
 
@@ -25,17 +21,17 @@ jQuery(document).ready(function ($) {
         thisSection.removeClass('searched');
         args.s = '';
         options.searched = false;
-        searchThings_ajax(nonce, args, options);
+        searchThings_ajax(args, options);
       }
     });
     $(this).on('submit', function () {
       args.s = searchThingsInput.val();
       options.searched = true;
-      searchThings_ajax(nonce, args, options);
+      searchThings_ajax(args, options);
     });
   });
 
-  function searchThings_ajax(nonce, args, options) {
+  function searchThings_ajax(args, options) {
     let thisSection = '#list-of-things-' + options.things_section_id;
     let searchThingsInput = $(thisSection + ' .search-things-input');
     let clearSearchThings = $(thisSection + ' .clear-search-things');
@@ -43,8 +39,6 @@ jQuery(document).ready(function ($) {
       type: 'POST',
       url: vars.ajaxurl,
       data: {
-        _ajax_nonce: nonce.nonce,
-        _ajax_nonce_action: nonce.nonce_action,
         action: 'new_get_things',
         args: args,
         options: options,

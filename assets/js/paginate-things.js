@@ -5,10 +5,6 @@ jQuery(document).ready(function ($) {
     thisSection.on('click', '.things-pagination .page-numbers:not(.current):not(.dots)', function (e) {
       e.preventDefault();
 
-      const nonce = {
-        nonce: thisSection.data('thingsNonce'),
-        nonce_action: 'things_nonce_' + thisSection.data('thingsSectionId'),
-      };
       const args = $.extend(true, {}, thisSection.data('thingsArgs'));
       const options = $.extend(true, {}, thisSection.data('thingsOptions'));
 
@@ -16,19 +12,17 @@ jQuery(document).ready(function ($) {
 
       if (page && page > 0) {
         args.paged = page;
-        paginateThings_ajax(nonce, args, options);
+        paginateThings_ajax(args, options);
       }
     });
   });
 
-  function paginateThings_ajax(nonce, args, options) {
+  function paginateThings_ajax(args, options) {
     let thisSection = '#list-of-things-' + options.things_section_id;
     $.ajax({
       type: 'POST',
       url: vars.ajaxurl,
       data: {
-        _ajax_nonce: nonce.nonce,
-        _ajax_nonce_action: nonce.nonce_action,
         action: 'new_get_things',
         args: args,
         options: options,

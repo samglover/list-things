@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com) and uses [semantic versioning](https://semver.org/).
 
+## 0.4.2 - 2026-10-25
+
+### Fixed
+- Pagination, search, sort, and filters no longer fail with "Invalid nonce" errors on cached or long-open pages
+- List updates only return post types and statuses the current visitor is allowed to see
+
+
 ## 0.4.1 - 2026-10-01
 
 ### Fixed
