@@ -111,6 +111,11 @@ function restrict_query_args( $args ) {
 				if ( ! current_user_can( $post_status_obj->private ? $cap->read_private_posts : $cap->edit_others_posts ) ) {
 					return false;
 				}
+
+				// Inherited posts (like attachments) take their parent's status, which may be private.
+				if ( 'inherit' === $post_status && ! current_user_can( $cap->read_private_posts ) ) {
+					return false;
+				}
 			}
 
 			return true;
