@@ -72,6 +72,9 @@ function restrict_query_args( $args ) {
 	}
 
 	$post_statuses = isset( $args['post_status'] ) ? (array) $args['post_status'] : array( $default_params['args']['post_status'] );
+
+	// Normalize statuses the same way WP_Query does, so the checks below see what it will query.
+	$post_statuses = array_unique( array_map( 'sanitize_key', array_map( 'strval', $post_statuses ) ) );
 	$post_statuses = array_filter(
 		$post_statuses,
 		function ( $post_status ) use ( $post_types ) {
@@ -79,9 +82,20 @@ function restrict_query_args( $args ) {
 				return true;
 			}
 
+			// WP_Query skips status filtering entirely when no requested status is registered.
+			if ( 'any' !== $post_status && ! in_array( $post_status, get_post_stati(), true ) ) {
+				return false;
+			}
+
 			foreach ( $post_types as $post_type ) {
 				$cap = get_post_type_object( $post_type )->cap;
-				if ( ! current_user_can( 'private' === $post_status ? $cap->read_private_posts : $cap->edit_others_posts ) ) {
+
+				// 'any' includes private posts.
+				if ( in_array( $post_status, array( 'private', 'any' ), true ) && ! current_user_can( $cap->read_private_posts ) ) {
+					return false;
+				}
+
+				if ( 'private' !== $post_status && ! current_user_can( $cap->edit_others_posts ) ) {
 					return false;
 				}
 			}
